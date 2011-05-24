@@ -1,11 +1,14 @@
 package com.lbi.internetweek;
 
+import java.util.Timer;
+
 import processing.core.*;
 import processing.opengl.PGraphicsOpenGL;
 
 import hypermedia.video.*;
 
 import com.lbi.internetweek.utils.Stats;
+import com.lbi.internetweek.utils.TwitterWrapper;
 import com.lbi.internetweek.views.Background;
 import com.lbi.internetweek.views.Bird;
 import com.lbi.internetweek.views.KinectWrapper;
@@ -27,8 +30,7 @@ public class Installation extends PApplet
 	}
 
 	// --------------------------------------------------------------------------------------------------------
-	// VARS
-	
+	// VARS	
 	Stats 			_stats;
 		
 	//debug
@@ -42,12 +44,12 @@ public class Installation extends PApplet
 	Background  bg;
 	PImage pi_Grass;
 	
-	//boids
-	//Flock flock;
-
 	//kinect
 	KinectWrapper	kinect;
-	//
+	
+	//twitter
+	TwitterWrapper	twitter;
+	Timer			twitter_timer;
 
 	//openCV
 	OpenCV          opencv;
@@ -81,16 +83,17 @@ public class Installation extends PApplet
 		  
 		//instantiation
 		//-------------------------------------
-		bg			=	new Background(this);
-		kinect		=	new KinectWrapper(this);
+		bg				=	new Background(this);
+		kinect			=	new KinectWrapper(this);		
+		twitter			=	new TwitterWrapper(this);
+		twitter_timer	=	new Timer();
 		
 		setupOpenCV();
 		setupPhysics();
 		setupBirds();
 		  
 		//extras
-		//-------------------------------------
-		    
+		//-------------------------------------		    
 		_stats      =  new Stats(this);  
 	}
 	
@@ -107,7 +110,6 @@ public class Installation extends PApplet
 		physics.update();
 		drawBirds();
 		  
-		
 		//if( mousePressed ) 
 			_stats.draw(0,0);
 	}

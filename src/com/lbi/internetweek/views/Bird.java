@@ -8,8 +8,8 @@ import toxi.physics2d.VerletParticle2D;
 
 public class Bird 
 {
-	int 			SEED;
 	int				FRAME_UPDATE_FREQ	=	6;
+	int 			SEED;
 	
 	PApplet 		p;
 	PImage 			bird_sprites;
@@ -19,6 +19,7 @@ public class Bird
 	FlyingState		flyingState;
 
 	int				mirrored = 1;
+	float 			scale = .6f;
 	
 	int				NUM_FRAMES		=	2;
 	PImage[]		frames			=	new PImage[NUM_FRAMES];	
@@ -71,7 +72,7 @@ public class Bird
 		//draw bird
 		p.pushMatrix();
 	    	p.translate( vp.x, vp.y );
-	    	p.scale(mirrored, 1);
+	    	p.scale(mirrored * scale, scale);
 	    	
 	    	p.noStroke();
 	    	p.beginShape();

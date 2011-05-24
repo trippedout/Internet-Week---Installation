@@ -5,11 +5,17 @@
 	<classpathentry kind="lib" path="Jars/Ani.jar"/>
 	<classpathentry kind="lib" path="Jars/core.jar"/>
 	<classpathentry kind="lib" path="Jars/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="Jars/jogl.jar"/>
+	<classpathentry kind="lib" path="Jars/jogl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/atripaldi/Documents/Processing/EclipseProjects/InternetWeek/bin"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="Jars/OpenCV.jar"/>
 	<classpathentry kind="lib" path="Jars/opengl.jar"/>
 	<classpathentry kind="lib" path="Jars/SimpleOpenNI.jar" sourcepath="/Users/atripaldi/Documents/Processing/libraries/SimpleOpenNI/src/SimpleOpenNI"/>
 	<classpathentry kind="lib" path="Jars/toxiclibscore.jar"/>
 	<classpathentry kind="lib" path="Jars/verletphysics.jar"/>
+	<classpathentry kind="lib" path="Jars/twitter4j.jar"/>
+	<classpathentry kind="lib" path="Jars/twitter4j-stream-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -6,8 +6,8 @@ import processing.core.PImage;
 
 public class KinectWrapper
 {
-	Boolean			DRAW_DEPTH_IMAGE		=	false;
-	Boolean			DRAW_SKELETON			=	true;
+	boolean			DRAW_DEPTH_IMAGE		=	false;
+	boolean			DRAW_SKELETON			=	true;
 	
 	PApplet			_parent;
 	
