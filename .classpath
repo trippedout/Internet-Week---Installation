@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="Jars/jogl.jar"/>
 	<classpathentry kind="lib" path="Jars/OpenCV.jar"/>
 	<classpathentry kind="lib" path="Jars/opengl.jar"/>
-	<classpathentry kind="lib" path="Jars/SimpleOpenNI.jar"/>
+	<classpathentry kind="lib" path="Jars/SimpleOpenNI.jar" sourcepath="/Users/atripaldi/Documents/Processing/libraries/SimpleOpenNI/src/SimpleOpenNI"/>
 	<classpathentry kind="lib" path="Jars/toxiclibscore.jar"/>
 	<classpathentry kind="lib" path="Jars/verletphysics.jar"/>
 	<classpathentry kind="output" path="bin"/>
