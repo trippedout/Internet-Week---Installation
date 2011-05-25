@@ -6,6 +6,11 @@ import com.lbi.internetweek.views.Bird;
 
 public class TweetState extends BirdState 
 {	
+	int				FRAME_UPDATE_FREQ	=	6;
+	int				NUM_FRAMES			=	2;
+	
+	int				frame_counter		=	0;
+	int 			flying_frame 		=	0;
 	
 	public TweetState( Bird b )
 	{
@@ -14,7 +19,10 @@ public class TweetState extends BirdState
 
 	public void draw() 
 	{
-		
+		if( (bird.getParent().frameCount + bird.SEED) % FRAME_UPDATE_FREQ == 0 )
+		{
+			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
+		}
 	}
 	
 	@Override

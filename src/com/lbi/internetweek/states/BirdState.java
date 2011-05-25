@@ -25,7 +25,9 @@ public class BirdState implements IBirdState {
 	}
 
 	@Override
-	public boolean setTweetState() {
+	public boolean setTweetState() 
+	{
+		bird.setState(bird.tweetState);
 		return true;
 	}
 

@@ -7,16 +7,18 @@ public class Background {
 
 	PApplet 	p;
 	PImage 		grass;
+	PImage		bg;
 	
 	public Background( PApplet parent )
 	{
 		p 			=	parent;
 		grass		=	p.loadImage("grass.png");
+		bg			=	p.loadImage("bg.png");
 	}
 	
 	public void draw()
 	{		
-		//draw gradient
+		//draw gradient		
 		float d = (p.cos(p.frameCount*.005f) + 1) * .5f;
 		int c1 = getHighColor(d);
 		int c2 = getLowColor(d);	
@@ -32,7 +34,8 @@ public class Background {
 		
 		//draw clouds
 		
-		//draw grass		
+		//draw grass	
+		/*
 		int gw = grass.width,
 			gh = grass.height;			
 
@@ -48,6 +51,19 @@ public class Background {
 		  	p.vertex(0,gh,0,gh);
 		  	p.endShape();
 	  	p.popMatrix();
+	  	//*/
+	  	
+		int bw = bg.width,
+			bh = bg.height;
+		
+		
+		p.beginShape(p.QUADS);
+		p.texture(bg);
+	  	p.vertex(0,0,0,0);
+	  	p.vertex(bw,0,bw,0);
+	  	p.vertex(bw,bh,bw,bh);
+	  	p.vertex(0,bh,0,bh);
+	  	p.endShape();
 	}
 	
 	//day vals for lower color start: low r, low g, low b, low r end, low b end, low b end

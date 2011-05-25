@@ -133,7 +133,7 @@ public class Installation extends PApplet
 			@Override
 			public void onEvent(TwitterEvent evt) 
 			{
-				println( "Twitter updated! " + (Status) evt.getSource() );
+				//println( "Twitter updated! " + (Status) evt.getSource() );
 				flock.addTweetToQueue( (Status) evt.getSource() );
 			}
 		} );
@@ -191,7 +191,7 @@ public class Installation extends PApplet
 				//TODO: GET RGB IMAGE OF PERSON WORKING
 				//texture( kinect.getRGBImage() );
 				
-				for( int i = 0; i < blob.points.length; i += 1 ) 
+				for( int i = 0; i < blob.points.length; i += 3 ) 
 				{
 					nx = parseInt( map( blob.points[i].x, 0, 320, 0, width ) );
 					ny = parseInt( map( blob.points[i].y, 0, 240, 0, height ) );

@@ -71,12 +71,11 @@ public class Flock
 
 	private void createAttractors() 
 	{	
-		//attraction pool for use in keeping birds on person
+		//attraction pool for use in keeping birds on/away from person
 		for( int i = 0; i < attractionPool.length; ++i )
 		{
 			Vec2D v = new Vec2D( -1000, -1000 );
 			attractionPool[i] = new AttractionBehavior(v, 250.0f, 0.0f);
-			//_physics.addBehavior(attractionPool[i]);
 		}
 	}
 
@@ -88,10 +87,16 @@ public class Flock
 		{			
 			@Override
 			public void onEvent(TwitterEvent evt) 
-			{			
+			{
+				_tweet.killTweet();
 				
+				_tweetBird.setState(_tweetBird.getLastState());
+				_tweetBird 		=	null;
+				_tweetIsShowing = 	false;
 			}
 		};
+
+		_tweet.addListener(_tweetListener);
 	}
 
 	// --------------------------------------------------------------------------------------------------------
@@ -159,10 +164,15 @@ public class Flock
 		
 		for( int i = 0; i < NUM_BIRDS; ++i )
 		{
-			_birds[i].draw();
+			Bird b = _birds[i];
+			if( b != _tweetBird ) b.draw();
 		}	
 		
-		if(_tweetIsShowing) _tweet.draw( _tweetBird.x, _tweetBird.y );
+		if(_tweetIsShowing)
+		{
+			_tweetBird.draw();
+			_tweet.draw( _tweetBird.x, _tweetBird.y );
+		}
 	}
 	
 	// --------------------------------------------------------------------------------------------------------
@@ -182,12 +192,10 @@ public class Flock
 			Bird b = getRandomBird();
 			
 			if( b.setTweetState() )
-			{
+			{				
 				_tweetIsShowing 	=	true;
 				_tweetBird			=	b;
-				
-				_tweet.addListener(_tweetListener);
-				
+								
 				Status s = _tweetsQueue.iterator().next();
 				_tweetsQueue.remove(s);
 				

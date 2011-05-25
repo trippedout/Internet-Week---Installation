@@ -33,9 +33,10 @@ public class Bird
 	PImage 				sprites;	
 	
 	IBirdState		state;
-	PerchState		perchState;
-	TweetState		tweetState;
-	FlyingState		flyingState;
+	IBirdState		lastState;
+	public PerchState		perchState;
+	public TweetState		tweetState;
+	public FlyingState		flyingState;
 	
 	int bw, bh, bhw, bhh;
 	
@@ -56,6 +57,7 @@ public class Bird
 		setFrames();
 		setStates();
 		
+		state = perchState;
 		setState( perchState );
 	}
 
@@ -120,8 +122,13 @@ public class Bird
 		return state;
 	}
 
+	public IBirdState getLastState() {
+		return lastState;
+	}
+
 	public void setState(IBirdState state) 
 	{
+		this.lastState = this.state;
 		this.state = state;
 		this.state.draw();
 	}
@@ -185,4 +192,5 @@ public class Bird
 	public void setBirds(Bird[] birds) {
 		this.birds = birds;
 	}
+
 }
