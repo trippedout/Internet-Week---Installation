@@ -7,6 +7,7 @@ import processing.core.PImage;
 public class KinectWrapper
 {
 	boolean			DRAW_DEPTH_IMAGE		=	false;
+	boolean			DRAW_COLOR_IMAGE		=	false;
 	boolean			DRAW_SKELETON			=	true;
 	
 	PApplet			_parent;
@@ -14,8 +15,11 @@ public class KinectWrapper
 	SimpleOpenNI    _context;
 	
 	PImage          _depthImage;
+	PImage          _rgbImage;
 	
 	int[]           _rawDepth;
+	int[]			_rawColor;
+	
 	int             _kWidth, _kHeight;
 	int             _nearThreshold, _farThreshold;
 	
@@ -35,12 +39,14 @@ public class KinectWrapper
 
 	private void setupKinect() 
 	{
-		_context = new SimpleOpenNI(_parent,SimpleOpenNI.RUN_MODE_MULTI_THREADED); 
+		_context = new SimpleOpenNI(_parent,SimpleOpenNI.RUN_MODE_MULTI_THREADED);		 
 		_context.setMirror(true);
 		_context.enableDepth();
+		_context.enableRGB();
 		_context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
 
 		_depthImage   		=	_parent.createImage( 320, 240, _parent.RGB );
+		_rgbImage   		=	_parent.createImage( 320, 240, _parent.RGB );
 	}
 	
 	// --------------------------------------------------------------------------------------------------------
@@ -55,7 +61,7 @@ public class KinectWrapper
 	public void draw()
 	{
 		
-		int i, j, c, dpos, pos;
+		int i, j, c1, c2, dpos, pos;
 		int w=640, h=480;
 		  
 		if( _parent.frameCount % 4 == 0 )
@@ -63,7 +69,8 @@ public class KinectWrapper
 			dpos = 0;
 			pos = 0;
 		    
-		    _rawDepth = _context.depthMap();
+		    _rawDepth 	=	_context.depthMap();
+		    _rawColor	=	_context.rgbImage().pixels;
 		    
 		    for( i = 0; i < h; i += 2 )
 		    {
@@ -71,18 +78,22 @@ public class KinectWrapper
 		    	{
 		    		dpos   =  ( i * w ) + j;
 		        
-		    		c      =  _rawDepth[dpos];
-		                
-		    		if( c > _nearThreshold && c < _farThreshold )
+		    		c1      =  	_rawDepth[dpos];
+		            c2		=	_rawColor[dpos];
+		    		
+		    		if( c1 > _nearThreshold && c1 < _farThreshold )
 		    			_depthImage.pixels[pos] = 0xffffff;
 		    		else
 		    			_depthImage.pixels[pos] = 0;
-		        
+		    		
+		    		_rgbImage.pixels[pos] = c2;
+		    		
 		    		pos++;
 		    	}
 		    }
 		    
 		    _depthImage.updatePixels();
+		    _rgbImage.updatePixels();
 		}
 		  
 		if( DRAW_DEPTH_IMAGE )
@@ -96,12 +107,28 @@ public class KinectWrapper
 			_parent.vertex(0,240,0,240);
 			_parent.endShape();
 		}
+		
+		if( DRAW_COLOR_IMAGE )
+		{
+			_parent.beginShape(_parent.QUADS);
+			_parent.texture(_rgbImage);
+			_parent.vertex(0,0,0,0);
+			_parent.vertex(320,0,320,0);
+			_parent.vertex(320,240,320,240);
+			_parent.vertex(0,240,0,240);
+			_parent.endShape();
+		}
 		  
 		if( DRAW_SKELETON )
 		{
 			if(_context.isTrackingSkeleton(1))
 				drawSkeleton(1);
 		}
+	}
+	
+	public PImage getRGBImage()
+	{
+		return _rgbImage;
 	}
 	
 	// --------------------------------------------------------------------------------------------------------

@@ -1,25 +1,27 @@
 package com.lbi.internetweek.utils;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.net.httpserver.Filter;
+import javax.swing.event.EventListenerList;
+
+import com.lbi.internetweek.events.TwitterEvent;
+import com.lbi.internetweek.events.TwitterEventListener;
 
 import processing.core.PApplet;
+
 import twitter4j.*;
 import twitter4j.auth.*;
 import twitter4j.conf.*;
 
-final public class TwitterWrapper implements ActionListener
+final public class TwitterWrapper
 {
 	String[] 			TRACKING_ARRAY		=	{"webbys","internetweek","lbinewyork"};
 	Map<Long, String>	_map 				=	new HashMap<Long, String>();
+	ArrayList<Status>	_tweets				=	new ArrayList<Status>();
+	
+	EventListenerList 	_listenerList		=	new EventListenerList();
 	
 	PApplet 			_parent;
 	TwitterStream 		_stream;
@@ -53,7 +55,7 @@ final public class TwitterWrapper implements ActionListener
 		{
 			public void onStatus(Status status) 
 			{
-				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+				//System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
 				_hasNewTweets = addToMap(status);
 			}
 
@@ -79,26 +81,41 @@ final public class TwitterWrapper implements ActionListener
 
 	protected boolean addToMap(Status status) 
 	{
-		if( _map.containsKey(status.getId()) )
+		if( _map.containsKey(status.getId()) || _map.containsValue(status.getText()) )
 			return false;
 		else
 		{			
-			_map.put(status.getId(), 
-					status.getUser().getScreenName() + "-" + status.getText() 
-					);
+			_map.put( status.getId(), status.getText() );
+			
+			dispatchEvent( new TwitterEvent(status) );
+			
 			return true;
 		}
 	}
-
-	boolean hasNewTweets() {
-		return _hasNewTweets;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
+	
+	public void addListener( TwitterEventListener listener )
 	{
-		// TODO Auto-generated method stub
-		
+		_listenerList.add(TwitterEventListener.class, listener);
 	}
-
+	
+	public void removeListener( TwitterEventListener listener )
+	{
+		_listenerList.remove(TwitterEventListener.class, listener);
+	}
+	
+	private void dispatchEvent(TwitterEvent evt) 
+	{
+        Object[] listeners = _listenerList.getListenerList();
+        
+        // Each listener occupies two elements - the first is the listener class
+        // and the second is the listener instance        
+        for (int i=0; i<listeners.length; i+=2) 
+        {
+            if(listeners[i]==TwitterEventListener.class) 
+            {
+                ( (TwitterEventListener) listeners[i+1] ).onEvent(evt);
+            }
+        }
+    }	
+	
 }
