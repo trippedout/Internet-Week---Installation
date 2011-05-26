@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.lbi.internetweek.events.TwitterEvent;
 import com.lbi.internetweek.events.TwitterEventListener;
+import com.lbi.internetweek.views.boids.Boid;
+import com.lbi.internetweek.views.boids.Flock;
+import com.lbi.internetweek.views.boids.Zone;
 
 import hypermedia.video.Blob;
 
@@ -19,22 +22,23 @@ import toxi.physics2d.behaviors.AttractionBehavior;
 
 import twitter4j.Status;
 
-public class Flock 
+public class BirdsController 
 {
-	public static int 	NUM_BIRDS 	=	35;
+	//birds
+	public static int 	NUM_BIRDS 		=	35;
+	Bird[]	        	_birds			=	new Bird[NUM_BIRDS];
+	Flock				_flock;
+	Perch				_perch;
 	
 	//main
 	PApplet				_pa;
 	PImage        		_birdImage;
 	
-	Bird[]        	_birds		=	new Bird[NUM_BIRDS];
-	Perch			_perch;
-
 	//physics
 	VerletPhysics2D			_physics;
 	int                   	numAttractors = 20;
 	AttractionBehavior[]  	attractionPool = new AttractionBehavior[numAttractors];
-	
+		
 	//tweets
 	List<Status>			_tweetsQueue		=	new ArrayList<Status>();
 	boolean 				_tweetIsShowing		=	false;
@@ -42,9 +46,12 @@ public class Flock
 	TwitterEventListener	_tweetListener;
 	Bird					_tweetBird;
 	
-	public Flock( PApplet p, VerletPhysics2D physics )
+	
+	
+	public BirdsController( PApplet p, VerletPhysics2D physics )
 	{
-		_pa			=	p;
+		_pa				=	p;
+		_flock			=	new Flock(_pa);
 		_physics		=	physics;
 		
 		_birdImage      =	_pa.loadImage( "bird_sprites.png" );
@@ -59,13 +66,17 @@ public class Flock
 	{
 		for( int i = 0; i < NUM_BIRDS; ++i )
 		{
+			//*
+			_flock.add();
+			
 			_birds[i] = new Bird( _pa, 
 					_birdImage, 
-					(VerletParticle2D) _physics.particles.get(i),
+					_flock.get(i),
+					_physics.particles.get(i),
 					_perch.getSpot(i)
 			);
-			
-			_birds[i].setBirds(_birds);
+			_birds[i].setBirds(_birds);			
+			//*/
 		}		
 	}
 
@@ -103,6 +114,73 @@ public class Flock
 	// PUBLIC FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
 
+	public void draw()
+	{
+		_flock.update();
+		checkQueue();
+		
+		for( int i = 0; i < NUM_BIRDS; ++i )
+		{
+			Bird b = _birds[i];
+			if( b != _tweetBird ) b.draw();
+		}	
+		
+		if(_tweetIsShowing)
+		{
+			_tweetBird.draw();
+			_tweet.draw( _tweetBird.x, _tweetBird.y );
+		}
+	}
+	
+	// --------------------------------------------------------------------------------------------------------
+	// TWITTER FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+	
+	public void addTweetToQueue(Status status) 
+	{
+		_tweetsQueue.add(status);
+	}
+
+	private void checkQueue() 
+	{
+		if( !_tweetIsShowing && _tweetsQueue.size() > 0 )
+		{
+			Bird b = getRandomBird();
+			
+			if( b.setTweetState() )
+			{				
+				_tweetIsShowing 	=	true;
+				_tweetBird			=	b;
+								
+				Status s = _tweetsQueue.iterator().next();
+				_tweetsQueue.remove(s);
+				
+				_tweet.showTweet( s );
+			}
+			else
+				checkQueue();
+		}
+	}
+
+	// --------------------------------------------------------------------------------------------------------
+	// TEST FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+	
+	public Bird getRandomBird()
+	{
+		return _birds[ _pa.floor( _pa.random(NUM_BIRDS) ) ];
+	}
+	
+	public void testState() 
+	{
+		Bird b = getRandomBird();
+		b.setState( b.getRandomState() );
+	}	
+
+	// --------------------------------------------------------------------------------------------------------
+	// PHSYICS FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+	
 	public void updatePhysics(Blob blob)
 	{
 		if( blob != null )
@@ -158,68 +236,6 @@ public class Flock
 		}	  
 	}
 
-	public void draw()
-	{
-		checkQueue();
-		
-		for( int i = 0; i < NUM_BIRDS; ++i )
-		{
-			Bird b = _birds[i];
-			if( b != _tweetBird ) b.draw();
-		}	
-		
-		if(_tweetIsShowing)
-		{
-			_tweetBird.draw();
-			_tweet.draw( _tweetBird.x, _tweetBird.y );
-		}
-	}
-	
-	// --------------------------------------------------------------------------------------------------------
-	// TWITTER FUNCTIONS
-	// --------------------------------------------------------------------------------------------------------
-
-	
-	public void addTweetToQueue(Status status) 
-	{
-		_tweetsQueue.add(status);
-	}
-
-	private void checkQueue() 
-	{
-		if( !_tweetIsShowing && _tweetsQueue.size() > 0 )
-		{
-			Bird b = getRandomBird();
-			
-			if( b.setTweetState() )
-			{				
-				_tweetIsShowing 	=	true;
-				_tweetBird			=	b;
-								
-				Status s = _tweetsQueue.iterator().next();
-				_tweetsQueue.remove(s);
-				
-				_tweet.showTweet( s );
-			}
-			else
-				checkQueue();
-		}
-	}
-
-	// --------------------------------------------------------------------------------------------------------
-	// TEST FUNCTIONS
-	// --------------------------------------------------------------------------------------------------------
-	
-	public Bird getRandomBird()
-	{
-		return _birds[ _pa.floor( _pa.random(NUM_BIRDS) ) ];
-	}
-	
-	public void testState() 
-	{
-		Bird b = getRandomBird();
-		b.setState( b.getRandomState() );
-	}
 
 
 }

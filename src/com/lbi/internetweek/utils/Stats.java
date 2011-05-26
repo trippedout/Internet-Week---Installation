@@ -14,8 +14,10 @@ public class Stats
 	public void draw( int x, int y )
 	{
 		p.fill( 50, 50, 200 );
-		p.rect( x, y, 115, 30 );
+		p.rect( x, y, 150, 30 );
 		p.fill(255);
+		p.textAlign(p.LEFT);
+		p.textSize(14);
 		p.text( "FrameRate: " + PApplet.floor(p.frameRate), x + 10, y + 20 );
 	}
 }

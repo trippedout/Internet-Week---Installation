@@ -16,7 +16,7 @@ import com.lbi.internetweek.utils.Stats;
 import com.lbi.internetweek.utils.TwitterWrapper;
 import com.lbi.internetweek.views.Background;
 import com.lbi.internetweek.views.Bird;
-import com.lbi.internetweek.views.Flock;
+import com.lbi.internetweek.views.BirdsController;
 import com.lbi.internetweek.views.KinectWrapper;
 
 import toxi.geom.Rect;
@@ -42,6 +42,9 @@ public class Installation extends PApplet
 		
 	//debug
 	boolean DRAW_KINECT_BLOBS        =  true;
+	
+	//fonts
+	public PFont font;
 
 	//images
 	PImage pi_LBiLogo;
@@ -53,7 +56,7 @@ public class Installation extends PApplet
 	KinectWrapper	kinect;
 	
 	//Birds
-	Flock			flock;
+	BirdsController			flock;
 	
 	//twitter
 	TwitterWrapper		twitter;
@@ -77,10 +80,11 @@ public class Installation extends PApplet
 		//-------------------------------------
 		size( 1280, 960, OPENGL );		
 		  
-		//image loading
+		//font loading
 		//-------------------------------------
+		font		=	loadFont("DroidSansMono-16.vlw");
+		textFont(font, 16 );
 		
-		  
 		//instantiation
 		//-------------------------------------
 		bg				=	new Background(this);
@@ -122,7 +126,7 @@ public class Installation extends PApplet
 	// --------------------------------------------------------------------------------------------------------
 	// SETUP FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
-
+	
 	private void setupTwitter() 
 	{
 		twitter			=	new TwitterWrapper(this);
@@ -153,7 +157,7 @@ public class Installation extends PApplet
 		physics.setWorldBounds(new Rect(50, 50, width-100, height-100));  
 		//physics.addBehavior(new GravityBehavior(new Vec2D(0, 0.05f)));
 	  
-		for( int i = 0; i < Flock.NUM_BIRDS; ++i )
+		for( int i = 0; i < BirdsController.NUM_BIRDS; ++i )
 		{
 			VerletParticle2D p = new VerletParticle2D(new Vec2D(random(width-100)+50, random(height-100)+50));
 			physics.addParticle(p);
@@ -162,7 +166,7 @@ public class Installation extends PApplet
 
 	void setupBirds()
 	{
-		flock			=	new Flock(this, physics);
+		flock			=	new BirdsController(this, physics);
 	}
 
 	// --------------------------------------------------------------------------------------------------------

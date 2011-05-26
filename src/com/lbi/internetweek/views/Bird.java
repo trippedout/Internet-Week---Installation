@@ -4,9 +4,11 @@ import com.lbi.internetweek.states.FlyingState;
 import com.lbi.internetweek.states.IBirdState;
 import com.lbi.internetweek.states.PerchState;
 import com.lbi.internetweek.states.TweetState;
+import com.lbi.internetweek.views.boids.Boid;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.core.PVector;
 import toxi.geom.Vec2D;
 import toxi.physics2d.VerletParticle2D;
 import twitter4j.Status;
@@ -19,9 +21,11 @@ public class Bird
 	public PImage[]		perchedFrames		=	new PImage[1];
 	
 	public PImage		birdTexture;
-	public Vec2D		perch;
+	public Vec2D		_perch;
 
-	public VerletParticle2D	vp;
+	public VerletParticle2D		_vp;
+	public Boid					_boid;
+	public PVector				velocity;
 	
 	public int			mirrored = 1;
 	public float 		scale = .6f;
@@ -40,14 +44,17 @@ public class Bird
 	
 	int bw, bh, bhw, bhh;
 	
-	public Bird( PApplet parent, PImage birdImage, VerletParticle2D verletParticle2D, Vec2D p )
+	public Bird( PApplet parent, PImage birdImage, Boid boid, VerletParticle2D verletParticle2D, Vec2D p )
 	{
 		SEED			=	PApplet.floor(parent.random(100));		
 		
 		_pa				=	parent;
 		sprites		 	=	birdImage;
-		vp				=	verletParticle2D;
-		perch			=	p;
+		_vp				=	verletParticle2D;
+		_boid			=	boid;
+		_perch			=	p;
+		
+		velocity		=	new PVector();		
 		
 		bw				=	128;
 		bh				=	64;
@@ -57,8 +64,8 @@ public class Bird
 		setFrames();
 		setStates();
 		
-		state = perchState;
-		setState( perchState );
+		state = flyingState;
+		setState( flyingState );
 	}
 
 	// --------------------------------------------------------------------------------------------------------
@@ -87,14 +94,14 @@ public class Bird
 		
 		rows = 1;
 		
-		//perched frames
+		//_perched frames
 		perchedFrames[0] = sprites.get(0,64,bw,bh);
 		/*
 		for (int i = 0; i < rows; i++)
 		{
 		    for (int j = 1; j < cols; j++)
 		    {
-		    	perchedFrames[(i * cols) + j-1] = sprites.get(
+		    	_perchedFrames[(i * cols) + j-1] = sprites.get(
 		            i * bw,
 		            j * bh,
 		            bw,
@@ -147,10 +154,7 @@ public class Bird
 		//draw state to update values
 		state.draw();
 		
-		if(state instanceof FlyingState)
-			mirrored = vp.getVelocity().x >= 0 ? -1 : 1;
-		else
-			mirrored = 1;
+		mirrored = velocity.x >= 0 ? -1 : 1;
 		
 		//draw bird
 		if( birdTexture != null )
@@ -192,5 +196,14 @@ public class Bird
 	public void setBirds(Bird[] birds) {
 		this.birds = birds;
 	}
+	
+	public VerletParticle2D getParticle() {
+		return _vp;
+	}
+
+	public Boid getBoid() {
+		return _boid;
+	}
+
 
 }

@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import javax.swing.event.EventListenerList;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 import twitter4j.Status;
 
@@ -22,12 +23,13 @@ public class TweetView
 	int					_tweetDuration		=	5000;
 	
 	PImage				_speechBubble;
+	String				_tweet;
 	
 	public TweetView( PApplet p )
 	{
 		_pa					=	p;
 		_speechBubble		=	_pa.loadImage( "speech_bubble.png" );
-		
+				
 		setTimer();
 	}
 
@@ -39,6 +41,8 @@ public class TweetView
 	public void showTweet(Status s) 
 	{
 		_pa.println( "showTweet() " + s.getText() );
+		
+		_tweet				=	"@" + s.getUser().getScreenName() + " - " + s.getText();
 		
 		_timer.schedule(new TimerTask() 
 		{			
@@ -74,6 +78,11 @@ public class TweetView
 			_pa.vertex(sx+w, sy+h, w, h);
 			_pa.vertex(sx, sy+h, 0, h);
 			_pa.endShape();
+			
+			_pa.fill(0);
+			_pa.textAlign(_pa.CENTER);
+			_pa.text(_tweet, sx + 20, sy + 40, w-20, h-20);
+			_pa.noFill();
 		
 		_pa.popMatrix();
 	}

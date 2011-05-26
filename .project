@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>Bin</name>
+			<value>file:/Users/atripaldi/Documents/Processing/EclipseProjects/InternetWeek/bin</value>
+		</variable>
+	</variableList>
 </projectDescription>

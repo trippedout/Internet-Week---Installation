@@ -23,8 +23,8 @@ public class PerchState extends BirdState
 		//set new x and y vals
 		if( birdIsPerched )
 		{
-			bird.x				=	bird.perch.x;
-			bird.y				=	bird.perch.y;
+			bird.x				=	bird._perch.x;
+			bird.y				=	bird._perch.y;
 		}
 		else
 		{
@@ -41,8 +41,8 @@ public class PerchState extends BirdState
 		{
 			birdIsLanding = true;
 			
-			Ani.to( bird, 1, "x", bird.perch.x, Ani.QUAD_OUT, "onEnd:completePerching" );
-			Ani.to( bird, 1, "y", bird.perch.y, Ani.QUAD_OUT );
+			Ani.to( bird, 1, "x", bird._perch.x, Ani.QUAD_OUT, "onEnd:completePerching" );
+			Ani.to( bird, 1, "y", bird._perch.y, Ani.QUAD_OUT );
 		}		
 	}
 	

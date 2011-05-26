@@ -1,10 +1,11 @@
 package com.lbi.internetweek.states;
 
 import com.lbi.internetweek.views.Bird;
+import com.lbi.internetweek.views.boids.Boid;
 
 public class FlyingState extends BirdState
 {
-	int				FRAME_UPDATE_FREQ	=	6;
+	int				FRAME_UPDATE_FREQ	=	5;
 	int				NUM_FRAMES			=	2;
 	
 	int				frame_counter		=	0;
@@ -24,9 +25,11 @@ public class FlyingState extends BirdState
 			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
 		}
 		
-		/**
-		 * TODO: IMPLEMENT FLOCKING CODE HERE
-		 */
+		Boid b = bird.getBoid();
+		
+		bird.x = b.pos.x;
+		bird.y = b.pos.y;		
+		bird.velocity = b.vel;
 	}
 	
 }
