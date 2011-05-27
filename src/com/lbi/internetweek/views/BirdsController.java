@@ -25,7 +25,7 @@ import twitter4j.Status;
 public class BirdsController 
 {
 	//birds
-	public static int 	NUM_BIRDS 		=	50;
+	public static int 	NUM_BIRDS 		=	30;
 	Bird[]	        	_birds			=	new Bird[NUM_BIRDS];
 	Flock				_flock;
 	Perch				_perch;
@@ -47,14 +47,13 @@ public class BirdsController
 	Bird					_tweetBird;
 	
 	
-	
 	public BirdsController( PApplet p, VerletPhysics2D physics )
 	{
 		_pa				=	p;
 		_flock			=	new Flock(_pa);
 		_physics		=	physics;
 		
-		_birdImage      =	_pa.loadImage( "bird_sprites.png" );
+		_birdImage      =	_pa.loadImage( "bird_flying_sprites.png" );
 		_perch			=	new Perch( _pa, NUM_BIRDS );
 		
 		createBirds();
@@ -238,6 +237,13 @@ public class BirdsController
 		}	  
 	}
 
-
+	// --------------------------------------------------------------------------------------------------------
+	// GET SET FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+	
+	public Flock getFlock()
+	{
+		return _flock;
+	}
 
 }

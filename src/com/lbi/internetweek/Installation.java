@@ -57,7 +57,7 @@ public class Installation extends PApplet
 	KinectWrapper	kinect;
 	
 	//Birds
-	BirdsController			flock;
+	BirdsController		birds;
 	
 	//twitter
 	TwitterWrapper		twitter;
@@ -80,12 +80,12 @@ public class Installation extends PApplet
 	{
 		//processing calls
 		//-------------------------------------
-		size( 1280, 960, OPENGL );		
+		size( 1280, 960, OPENGL );
 		  
 		//font loading
 		//-------------------------------------
 		font		=	loadFont("DroidSansMono-16.vlw");
-		textFont(font, 16 );
+		textFont(font, 16);
 		
 		//instantiation
 		//-------------------------------------
@@ -113,8 +113,8 @@ public class Installation extends PApplet
 		 
 		physics.update();
 		
-		flock.updatePhysics(blob);
-		flock.draw();
+		birds.updatePhysics(blob);
+		birds.draw();
 		
 		kinect.drawGuide();
 		
@@ -124,7 +124,7 @@ public class Installation extends PApplet
 
 	public void mousePressed()
 	{
-		flock.testState();
+		birds.testState();
 	}
 	
 	// --------------------------------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ public class Installation extends PApplet
 			public void onEvent(TwitterEvent evt) 
 			{
 				//println( "Twitter updated! " + (Status) evt.getSource() );
-				flock.addTweetToQueue( (Status) evt.getSource() );
+				birds.addTweetToQueue( (Status) evt.getSource() );
 			}
 		} );
 	}
@@ -170,7 +170,7 @@ public class Installation extends PApplet
 
 	void setupBirds()
 	{
-		flock			=	new BirdsController(this, physics);
+		birds			=	new BirdsController(this, physics);
 	}
 
 	// --------------------------------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ public class Installation extends PApplet
 				int nx, ny;
 
 				//mask.beginDraw();				
-				fill(0,255,0,20);
+				fill(200,50,50,40);
 				noStroke();
 
 				beginShape();
@@ -249,6 +249,12 @@ public class Installation extends PApplet
 	public void onEndCalibration(int userId, boolean successfull)
 	{
 		kinect.onEndCalibration(userId, successfull);
+		
+		if( successfull ) 
+		{
+			birds.getFlock().addObj(kinect.leftHandVector);
+			birds.getFlock().addObj(kinect.rightHandVector);
+		}
 	}
 	
 	public void onStartPose(String pose,int userId)

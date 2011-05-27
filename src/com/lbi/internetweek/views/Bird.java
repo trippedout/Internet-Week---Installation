@@ -28,7 +28,7 @@ public class Bird
 	public PVector				velocity;
 	
 	public int			mirrored = 1;
-	public float 		scale = .6f;
+	public float 		scale = .3f;
 	public float		x, y, lx, ly;
 	
 	public Bird[]		birds;
@@ -56,8 +56,8 @@ public class Bird
 		
 		velocity		=	new PVector();		
 		
-		bw				=	128;
-		bh				=	64;
+		bw				=	192;
+		bh				=	192;
 		bhw				=	bw/2;
 		bhh				=	bh/2;
 		

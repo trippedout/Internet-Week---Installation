@@ -10,33 +10,17 @@ public class Flock
 	public PApplet pa;
 	
 	public Zone zone;
+		
+	public ArrayList<Boid> 	list;
+	public ArrayList<Obj> 	objList;
 	
-	// Keep in zone by looping or bouncing	
-	public boolean loopZone;
-	
-	// Boids list
-	public ArrayList<Boid> list;
-	
-	// Boids try to approach other boids (factor)
-	public float cohesion;
-	
-	// Boids try to keep a minimum distance between others (factor)
-	public float avoidance;
-	
-	// Boids try to move in the same way than other boids (factor)
-	public float imitation;
-	
-	// Boids radius
-	public int size = 7;
-	
-	// Distance for which boids touch things (avoidance, collisions)
-	public float aura;
-	
-	// Distance for which boids sees and responds to its environment
-	public float perception;
-	
-	// Define cruise-speed and stress-speed limit
-	public float speedLimit;
+	public float 	cohesion 		=	6;	
+	public float 	avoidance 		=	20;
+	public float 	imitation		=	6;
+	public int 		size 			=	12;
+	public float 	aura			=	3 * size;
+	public float 	perception		=	6 * size;
+	public float 	speedLimit		=	7.5f;
 
 	/**
 	 * Class constructor.
@@ -45,15 +29,9 @@ public class Flock
 	{
 		pa = p;
 		zone 		= 	new Zone(this, 30, 20, pa.width+200, pa.height-200);
-		loopZone 	= 	false;
-		list 		= 	new ArrayList();
-		cohesion 	= 	6;
-		avoidance 	= 	20;
-		imitation 	= 	6;
-		size 		=	12;
-		aura 		=	3 * size;
-		perception 	=	7 * size;
-		speedLimit 	=	7;
+		
+		list 		= 	new ArrayList<Boid>();
+		objList		=	new ArrayList<Obj>();
 	}
 
 
@@ -133,6 +111,15 @@ public class Flock
 	}
 
 	/**
+	 * Add a object to Obstruction list by defined vector
+	 */
+	public void addObj(PVector p)
+	{
+		objList.add( new Obj(this,p) );
+	}
+	
+	
+	/**
 	 * Update each boid position and velocity according to simulation rules.
 	 */
 	public void update()
@@ -147,7 +134,7 @@ public class Flock
 			b.matchVelocity();
 
 			// additionnal rules
-			b.keepInZone(zone, loopZone);
+			b.keepInZone(zone, false);
 
 			// Cruise-speed limitation
 			b.limitVelocity(speedLimit);
@@ -177,15 +164,15 @@ public class Flock
 			}
 			//*/
 
-			/*
+			//*
 			// obstacles boids.avoidance
-			for(int j=0; j<obstList.size(); j++)
+			for(int j=0; j<objList.size(); j++)
 			{
-				Obj o = (Obj) obstList.get(j);
+				Obj o = (Obj) objList.get(j);
 				// small repulsion when perceived (anticipation)
-				b.effector(int(o.pos.x), int(o.pos.y), o.aura + boids.perception, -0.2);
+				b.effector(pa.floor(o.pos.x), pa.floor(o.pos.y), o.aura + this.perception, -0.3f);
 				// big repulsion on contact (collision)
-				b.effector(int(o.pos.x), int(o.pos.y), o.rad + boids.size, -20);
+				b.effector(pa.floor(o.pos.x), pa.floor(o.pos.y), o.rad + this.size, -20f);
 			}
 			//*/
 
@@ -193,7 +180,7 @@ public class Flock
 			//b.effector(mouseX, mouseY, 70, -7);
 
 			// Max-speed limitation
-			//b.limitVelocity(speedLimit * 2);
+			b.limitVelocity(speedLimit * 2);
 
 			// finally update position
 			b.pos.add(b.vel);

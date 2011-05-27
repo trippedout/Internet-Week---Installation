@@ -43,8 +43,8 @@ public class KinectWrapper
 	{
 		_parent				=	parent;
 
-		_nearThreshold      =  	0;
-		_farThreshold       =  	2500;
+		_nearThreshold      =  	1500;
+		_farThreshold       =  	3750;
 
 		setupKinect();
 	}
@@ -72,7 +72,6 @@ public class KinectWrapper
 
 	public void draw()
 	{
-
 		int i, j, c1, c2, dpos, pos;
 		int w=640, h=480;
 
@@ -230,7 +229,7 @@ public class KinectWrapper
 
 	private void drawContacts() 
 	{
-		_parent.println("drawContacts");
+		//_parent.println("drawContacts");
 
 		_parent.fill( 255, 0, 0 );
 		_parent.noStroke();
@@ -281,7 +280,7 @@ public class KinectWrapper
 		if (successfull) 
 		{ 
 			_parent.println("--User calibrated !!!");
-			_context.startTrackingSkeleton(userId); 
+			_context.startTrackingSkeleton(userId);
 			currentUser = userId;
 		} 
 		else 
