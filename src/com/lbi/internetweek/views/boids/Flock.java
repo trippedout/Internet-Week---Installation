@@ -44,7 +44,7 @@ public class Flock
 	public Flock( PApplet p )
 	{
 		pa = p;
-		zone 		= 	new Zone(this, 30, 20, pa.width-60, pa.height-200);
+		zone 		= 	new Zone(this, 30, 20, pa.width+200, pa.height-200);
 		loopZone 	= 	false;
 		list 		= 	new ArrayList();
 		cohesion 	= 	6;

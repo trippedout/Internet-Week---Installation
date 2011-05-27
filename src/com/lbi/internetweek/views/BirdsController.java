@@ -25,7 +25,7 @@ import twitter4j.Status;
 public class BirdsController 
 {
 	//birds
-	public static int 	NUM_BIRDS 		=	35;
+	public static int 	NUM_BIRDS 		=	50;
 	Bird[]	        	_birds			=	new Bird[NUM_BIRDS];
 	Flock				_flock;
 	Perch				_perch;
@@ -208,9 +208,11 @@ public class BirdsController
 		        	v.x = _pa.parseInt( _pa.map( blob.points[i].x, 0, 320, 0, _pa.width ) );
 		        	v.y = _pa.parseInt( _pa.map( blob.points[i].y, 0, 240, 0, _pa.height ) );
 		          
+		        	/*
 		        	_pa.fill(255,0,0,100);
 		        	_pa.ellipse(v.x, v.y, 8, 8);
 		        	_pa.noFill();
+		        	//*/
 		        }
 			}	
 		    else

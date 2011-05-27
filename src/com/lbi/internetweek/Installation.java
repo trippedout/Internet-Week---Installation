@@ -41,7 +41,8 @@ public class Installation extends PApplet
 	Stats 			_stats;
 		
 	//debug
-	boolean DRAW_KINECT_BLOBS        =  true;
+	boolean DRAW_KINECT_BLOBS        	=	true;
+	int COUNT_UNTIL_KILL_KINECT_USERS	=	120;
 	
 	//fonts
 	public PFont font;
@@ -66,6 +67,7 @@ public class Installation extends PApplet
 	OpenCV          opencv;
 	Blob[]          blobs;
 	Blob            blob;
+	int				blobCounter = 0;
 
 	//phsyics
 	VerletPhysics2D       physics;
@@ -113,7 +115,9 @@ public class Installation extends PApplet
 		
 		flock.updatePhysics(blob);
 		flock.draw();
-		  
+		
+		kinect.drawGuide();
+		
 		//if( mousePressed ) 
 			_stats.draw(0,0);
 	}
@@ -172,43 +176,53 @@ public class Installation extends PApplet
 	// --------------------------------------------------------------------------------------------------------
 	// DRAW FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
-
+	
 	void drawOpenCV()
 	{
+		PImage rgb = kinect.getRGBImage();
 		opencv.copy( kinect.getDepthImage() );  
-		
+
 		//arbitrary size numbers for finding blobs big enough to be people
 		blobs = opencv.blobs( 75*75, 320*240, 10, false );
-  
+
 		if( blobs.length > 0 )
 		{  
+			blobCounter = 0;
 			blob = blobs[0];
-      
+
 			if( DRAW_KINECT_BLOBS )
 			{
 				int nx, ny;
-				
-				fill(0,255,0,100);
+
+				//mask.beginDraw();				
+				fill(0,255,0,20);
 				noStroke();
-				
+
 				beginShape();
-				//TODO: GET RGB IMAGE OF PERSON WORKING
-				//texture( kinect.getRGBImage() );
-				
-				for( int i = 0; i < blob.points.length; i += 3 ) 
-				{
-					nx = parseInt( map( blob.points[i].x, 0, 320, 0, width ) );
-					ny = parseInt( map( blob.points[i].y, 0, 240, 0, height ) );
-          
-					vertex( nx, ny );
-				}
+					for( int i = 0; i < blob.points.length; i += 3 ) 
+					{
+						nx = parseInt( map( blob.points[i].x, 0, 320, 0, width ) );
+						ny = parseInt( map( blob.points[i].y, 0, 240, 0, height ) );
+	
+						vertex( nx, ny );
+					}
 				endShape(CLOSE);
+				
+				//mask.endDraw();
 			}
+		}
+		else
+		{
+			blob = null;
+			blobCounter++;
+
+			if( blobCounter == COUNT_UNTIL_KILL_KINECT_USERS)
+			{
+				kinect.killUsers();
 			}
-	  else
-	  {
-		  blob = null;
-	  }
+		}
+		
+		//image( mask, 0,0 );
 	}
 
 	
