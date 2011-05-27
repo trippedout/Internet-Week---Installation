@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="Jars/verletphysics.jar"/>
 	<classpathentry kind="lib" path="Jars/twitter4j.jar"/>
 	<classpathentry kind="lib" path="Jars/twitter4j-stream-2.2.2.jar"/>
+	<classpathentry kind="lib" path="Jars/puremvc-java-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
