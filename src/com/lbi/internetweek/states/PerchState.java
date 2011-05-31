@@ -1,6 +1,6 @@
 package com.lbi.internetweek.states;
 
-import com.lbi.internetweek.views.Bird;
+import com.lbi.internetweek.view.components.Bird;
 
 import de.looksgood.ani.Ani;
 

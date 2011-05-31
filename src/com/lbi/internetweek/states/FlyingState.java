@@ -1,7 +1,7 @@
 package com.lbi.internetweek.states;
 
-import com.lbi.internetweek.views.Bird;
-import com.lbi.internetweek.views.boids.Boid;
+import com.lbi.internetweek.view.boids.Boid;
+import com.lbi.internetweek.view.components.Bird;
 
 public class FlyingState extends BirdState
 {
@@ -26,10 +26,9 @@ public class FlyingState extends BirdState
 		}
 		
 		Boid b = bird.getBoid();
-		
 		bird.x = b.pos.x;
 		bird.y = b.pos.y;		
-		bird.velocity = b.vel;
+		bird._velocity = b.vel;		
 	}
 	
 }

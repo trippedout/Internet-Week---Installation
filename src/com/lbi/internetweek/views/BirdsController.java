@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.lbi.internetweek.events.TwitterEvent;
 import com.lbi.internetweek.events.TwitterEventListener;
-import com.lbi.internetweek.views.boids.Boid;
-import com.lbi.internetweek.views.boids.Flock;
-import com.lbi.internetweek.views.boids.Zone;
+import com.lbi.internetweek.view.boids.Boid;
+import com.lbi.internetweek.view.boids.Flock;
+import com.lbi.internetweek.view.boids.Zone;
+import com.lbi.internetweek.view.components.Bird;
 
 import hypermedia.video.Blob;
 
@@ -32,7 +33,6 @@ public class BirdsController
 	
 	//main
 	PApplet				_pa;
-	PImage        		_birdImage;
 	
 	//physics
 	VerletPhysics2D			_physics;
@@ -53,7 +53,7 @@ public class BirdsController
 		_flock			=	new Flock(_pa);
 		_physics		=	physics;
 		
-		_birdImage      =	_pa.loadImage( "bird_flying_sprites.png" );
+		//_birdImage      =	_pa.loadImage( "bird_flying_sprites.png" );
 		_perch			=	new Perch( _pa, NUM_BIRDS );
 		
 		createBirds();
@@ -63,6 +63,7 @@ public class BirdsController
 	
 	private void createBirds() 
 	{
+		/*
 		for( int i = 0; i < NUM_BIRDS; ++i )
 		{
 			//*
@@ -75,8 +76,9 @@ public class BirdsController
 					_perch.getSpot(i)
 			);
 			_birds[i].setBirds(_birds);			
-			//*/
-		}		
+			
+		}
+		//*/
 	}
 
 	private void createAttractors() 

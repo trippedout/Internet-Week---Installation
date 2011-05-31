@@ -3,7 +3,7 @@ package com.lbi.internetweek.states;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-import com.lbi.internetweek.views.Bird;
+import com.lbi.internetweek.view.components.Bird;
 
 public class BirdState implements IBirdState {
 	

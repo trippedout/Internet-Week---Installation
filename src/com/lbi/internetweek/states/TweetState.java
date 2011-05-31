@@ -2,7 +2,7 @@ package com.lbi.internetweek.states;
 
 import twitter4j.Status;
 
-import com.lbi.internetweek.views.Bird;
+import com.lbi.internetweek.view.components.Bird;
 
 public class TweetState extends BirdState 
 {	
