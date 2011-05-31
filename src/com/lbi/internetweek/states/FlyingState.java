@@ -5,11 +5,15 @@ import com.lbi.internetweek.view.components.Bird;
 
 public class FlyingState extends BirdState
 {
-	int				FRAME_UPDATE_FREQ	=	5;
-	int				NUM_FRAMES			=	2;
+	private int				FRAME_UPDATE_FREQ	=	5;
+	private int				NUM_FRAMES			=	2;
+	private float			MIN_SCALE			=	0.35f;
 	
-	int				frame_counter		=	0;
-	int 			flying_frame 		=	0;
+	private int				frame_counter		=	0;
+	private int 			flying_frame 		=	0;
+	
+	private boolean			_isAnimatingSmaller	=	false;
+	private float			_scale;
 	
 	public FlyingState( Bird b )
 	{

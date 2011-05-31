@@ -62,7 +62,7 @@ public class Bird
 		//animation seed
 		SEED			=	_pa.floor(_pa.random(100));
 		
-				
+		//height and width of bird images
 		bw				=	192;
 		bh				=	192;
 		bhw				=	bw/2;

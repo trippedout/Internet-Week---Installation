@@ -13,12 +13,12 @@ public class TweetReadyForBirdCommand extends SimpleCommand
 {
 	public void execute(INotification note)
 	{
-		Bird bird = ( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
-						.getBirds()
-						.getTweetingBird();			
-		
 		( (TweetsMediator) this.facade.retrieveMediator(TweetsMediator.NAME) )
 			.getTweets()
-			.setCurrentBird(bird);
+			.setCurrentBird(
+					( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
+						.getBirds()
+						.setTwitterBird()
+					);
 	}
 }

@@ -92,6 +92,7 @@ public class BirdsView
 			return setTwitterBird();
 		else
 		{
+			b.setState(b.tweetState);
 			b.isTweeting = true;			
 			_tweetingBird = b;
 			return b;

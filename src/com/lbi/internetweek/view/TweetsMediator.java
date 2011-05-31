@@ -19,7 +19,7 @@ public class TweetsMediator extends Mediator
 	{
 		super(NAME, null);
 		
-		this.facade.registerCommand(TWEET_READY_FOR_BIRD, new TweetReadyForBirdCommand() );
+		this.facade.registerCommand( TWEET_READY_FOR_BIRD, new TweetReadyForBirdCommand() );
 	}
 	
 	public TweetsView getTweets()

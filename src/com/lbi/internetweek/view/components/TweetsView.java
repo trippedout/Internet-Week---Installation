@@ -55,17 +55,16 @@ public class TweetsView
 
 	public void draw()
 	{
-		System.out.println( "WE HAVE LIFTOFF " + _currentTweet + " " + _currentBird );
-		
 		if( _currentTweet != null && _currentBird != null )
-		{
-			
+		{			
 			if( _currentTweet.hasLife() ) 
 				_currentTweet.draw(_currentBird.x, _currentBird.y);
 			else
 			{
 				_currentTweet.kill();
 				_currentTweet = null;
+				
+				_currentBird.setState(_currentBird.lastState);
 				_currentBird = null;
 				checkQueue();
 			}
@@ -79,7 +78,6 @@ public class TweetsView
 
 	public void setCurrentBird(Bird bird)
 	{
-		
 		this._currentBird = bird;
 	}
 

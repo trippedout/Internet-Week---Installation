@@ -4,17 +4,25 @@ import twitter4j.Status;
 
 import com.lbi.internetweek.view.components.Bird;
 
+import de.looksgood.ani.Ani;
+
 public class TweetState extends BirdState 
 {	
-	int				FRAME_UPDATE_FREQ	=	6;
-	int				NUM_FRAMES			=	2;
+	private int				FRAME_UPDATE_FREQ	=	6;
+	private int				NUM_FRAMES			=	2;
+	private float			MAX_SCALE			=	0.8f;
 	
-	int				frame_counter		=	0;
-	int 			flying_frame 		=	0;
+	private int				frame_counter		=	0;
+	private int 			flying_frame 		=	0;
+	
+	private boolean			_isAnimatingLarger	=	false;	
+	public float			_scale;
 	
 	public TweetState( Bird b )
 	{
 		super(b);
+		
+		_scale = bird.scale;		
 	}
 
 	public void draw() 
@@ -23,6 +31,22 @@ public class TweetState extends BirdState
 		{
 			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
 		}
+		
+		bird.scale = _scale;
+		
+		if( !isAnimatingLarger )
+		{
+			if( bird.scale < MAX_SCALE )
+			{
+				isAnimatingLarger = true;
+				Ani.to(this, 1.2f, "_scale", 1, Ani.CUBIC_OUT, "onEnd:onAnimateLargerComplete" );
+			}
+		}	
+	}
+	
+	public void onAnimateLargerComplete(Ani theAni)
+	{
+		isAnimatingLarger = false;
 	}
 	
 	@Override
