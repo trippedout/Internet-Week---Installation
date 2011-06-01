@@ -180,8 +180,11 @@ public class Flock
 			//*
 			// obstacles boids.avoidance
 			for(int j=0; j<objList.size(); j++)
-			{
+			{				
 				Obj o = (Obj) objList.get(j);
+
+				PApplet.println( "Obj Velocity: " + o.pos.getVelocity() );
+						
 				// small repulsion when perceived (anticipation)
 				b.effector(pa.floor(o.pos.x), pa.floor(o.pos.y), o.aura + this.perception, -0.3f);
 				// big repulsion on contact (collision)
