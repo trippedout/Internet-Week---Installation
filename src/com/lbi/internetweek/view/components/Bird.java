@@ -103,9 +103,7 @@ public class Bird
 		        );
 		    }
 		}	
-		
-		rows = 1;
-		
+				
 		//_perched frames
 		perchedFrames[0] = _birdImage.get(0,64,bw,bh);
 	}

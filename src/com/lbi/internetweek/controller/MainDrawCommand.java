@@ -8,6 +8,7 @@ import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.view.BackgroundMediator;
 import com.lbi.internetweek.view.BirdsMediator;
 import com.lbi.internetweek.view.KinectMediator;
+import com.lbi.internetweek.view.PoofMediator;
 import com.lbi.internetweek.view.TweetsMediator;
 
 public class MainDrawCommand extends SimpleCommand
@@ -24,7 +25,11 @@ public class MainDrawCommand extends SimpleCommand
 		( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
 			.getBirdsView()
 			.draw();
-		
+
+		( (PoofMediator) this.facade.retrieveMediator(PoofMediator.NAME) )
+			.getPoofView()
+			.draw();
+	
 		( (TweetsMediator) this.facade.retrieveMediator(TweetsMediator.NAME) )
 			.getTweets()
 			.draw();

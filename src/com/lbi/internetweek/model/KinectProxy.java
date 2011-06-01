@@ -16,6 +16,7 @@ import com.lbi.internetweek.Installation;
 import com.lbi.internetweek.states.FlyingState;
 import com.lbi.internetweek.utils.OpenNIWrapper;
 import com.lbi.internetweek.utils.Vector2D;
+import com.lbi.internetweek.view.PoofMediator;
 import com.lbi.internetweek.view.components.Bird;
 
 public class KinectProxy extends Proxy
@@ -207,7 +208,10 @@ public class KinectProxy extends Proxy
 							b.hurtState.startingVelocity = rightHandVector.getVelocity().normalize(new PVector(0,1));							
 							b.setState(b.hurtState);
 							
-							lastMag = rvmag;							
+							lastMag = rvmag;
+							
+							this.facade.sendNotification( PoofMediator.SHOW_POOF, b.hurtState.startingPosition );
+							
 							break;
 						}
 						
@@ -218,7 +222,10 @@ public class KinectProxy extends Proxy
 							b.hurtState.startingVelocity = leftHandVector.getVelocity().normalize(new PVector(0,1));							
 							b.setState(b.hurtState);
 							
-							lastMag = lvmag;							
+							lastMag = lvmag;
+							
+							this.facade.sendNotification( PoofMediator.SHOW_POOF, b.hurtState.startingPosition );
+							
 							break;
 						}
 						
