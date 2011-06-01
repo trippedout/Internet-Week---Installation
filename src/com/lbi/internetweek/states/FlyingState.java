@@ -31,18 +31,24 @@ public class FlyingState extends BirdState
 	@Override
 	public void setState(IBirdState state)
 	{
+		super.setState(state);
+		
 		if( state instanceof TweetState )
 		{
 			//store vars for return
 			bird.tweetState.startingPosition = new PVector( bird.getBoid().pos.x, bird.getBoid().pos.y );
 			bird.tweetState.startingVelocity = new PVector( bird.getBoid().vel.x, bird.getBoid().vel.y );
 			
+			bird.isTweeting = true;
 			bird.state = bird.tweetState;
 		}
-		else if( state instanceof FlyingState )
+		else if( state instanceof HurtState )
 		{
-			//Do nothing because we're in it
-		}		
+			bird.hurtState.startingPosition = bird.getBoid().pos;
+			
+			bird.isHurt = true;
+			bird.state = bird.hurtState;
+		}
 	}
 	
 	@Override
@@ -69,7 +75,7 @@ public class FlyingState extends BirdState
 		bird.y 			= b.pos.y;		
 		bird._velocity 	= b.vel;
 		bird.scale 		= _scale;		
-		bird.rotation 	= b.vel.heading2D();
+		//bird.rotation 	= b.vel.heading2D();
 	}
 	
 	public void onAnimateSmallerComplete(Ani theAni)

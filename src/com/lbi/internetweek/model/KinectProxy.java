@@ -1,5 +1,7 @@
 package com.lbi.internetweek.model;
 
+import java.util.ArrayList;
+
 import org.puremvc.java.patterns.proxy.Proxy;
 
 import processing.core.PApplet;
@@ -11,8 +13,10 @@ import SimpleOpenNI.SimpleOpenNI;
 
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.Installation;
+import com.lbi.internetweek.states.FlyingState;
 import com.lbi.internetweek.utils.OpenNIWrapper;
 import com.lbi.internetweek.utils.Vector2D;
+import com.lbi.internetweek.view.components.Bird;
 
 public class KinectProxy extends Proxy
 {
@@ -169,6 +173,59 @@ public class KinectProxy extends Proxy
 	private float mapYToScreen(float y) 
 	{		
 		return PApplet.map(y, 0, 480, 0, _pa.height);
+	}
+
+	// --------------------------------------------------------------------------------------------------------
+	// COLLISIONS
+	// --------------------------------------------------------------------------------------------------------
+
+	
+	private float lastMag;
+	
+	public void checkBirds(ArrayList<Bird> birds)
+	{
+		if( _context.getNumberOfUsers() > 0 )
+		{
+			if( _context.isTrackingSkeleton(currentUser) )
+			{				
+				for( int i = 0; i < birds.size(); ++i )
+				{
+					Bird b 		= 	birds.get(i);
+					
+					if( !b.isHurt && !b.isTweeting && b.state instanceof FlyingState )
+					{
+						float dl	=	PVector.dist(b.getVec(), leftHandVector);
+						float dr	=	PVector.dist(b.getVec(), rightHandVector);
+						
+						float lvmag =	leftHandVector.vmag();
+						float rvmag =	rightHandVector.vmag();
+						
+						if( dr < AppProxy.MIN_DIST && rvmag > AppProxy.MIN_POWER && rvmag != lastMag )
+						{
+							PApplet.println( "\nBird: " + i + " dist: " + dr + " mag:" + rvmag );
+							
+							b.hurtState.startingVelocity = rightHandVector.getVelocity().normalize(new PVector(0,1));							
+							b.setState(b.hurtState);
+							
+							lastMag = rvmag;							
+							break;
+						}
+						
+						if( dl < AppProxy.MIN_DIST && lvmag > AppProxy.MIN_POWER && lvmag != lastMag )
+						{
+							PApplet.println( "\nBird: " + i + " dist: " + dl + " mag:" + lvmag );
+							
+							b.hurtState.startingVelocity = leftHandVector.getVelocity().normalize(new PVector(0,1));							
+							b.setState(b.hurtState);
+							
+							lastMag = lvmag;							
+							break;
+						}
+						
+					}
+				}
+			}		
+		}
 	}
 
 	// --------------------------------------------------------------------------------------------------------

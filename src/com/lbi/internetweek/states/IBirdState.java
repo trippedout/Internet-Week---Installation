@@ -6,6 +6,4 @@ public interface IBirdState
 {
 	void draw();
 	void setState(IBirdState state);
-	
-	boolean setTweetState();
 }

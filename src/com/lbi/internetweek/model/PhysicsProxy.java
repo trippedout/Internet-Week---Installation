@@ -10,6 +10,7 @@ import toxi.geom.Rect;
 import toxi.geom.Vec2D;
 import toxi.physics2d.VerletParticle2D;
 import toxi.physics2d.VerletPhysics2D;
+import toxi.physics2d.behaviors.GravityBehavior;
 
 public class PhysicsProxy extends Proxy
 {
@@ -32,24 +33,17 @@ public class PhysicsProxy extends Proxy
 	private final void setupPhysics()
 	{
 		_physics = new VerletPhysics2D();
-		_physics.setDrag( 0.005f );
-		_physics.setWorldBounds( new Rect( 50, 
-				50, 
-				_app.width-100, 
-				_app.height-100
+		_physics.setWorldBounds( new Rect( 0, 0, 
+				_app.width, 
+				_app.height - 180
 				)
 		);
-
+		_physics.addBehavior( new GravityBehavior( new Vec2D( 0, 0.8f ) ) );
+		_physics.setDrag( 0.01f );
+		
 		for( int i = 0; i < AppProxy.NUM_BIRDS; ++i )
 		{
-			VerletParticle2D p = new VerletParticle2D( 
-					new Vec2D( 
-							_app.random( _app.width-100 ) + 50,
-							_app.random( _app.height-100 ) + 50
-							)
-			);
-			
-			_physics.addParticle(p);
+			_physics.addParticle( new VerletParticle2D( new Vec2D() ) );
 		}		
 	}
 		

@@ -1,8 +1,12 @@
 package com.lbi.internetweek.view.components;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.states.FlyingState;
+import com.lbi.internetweek.states.HurtState;
 import com.lbi.internetweek.states.IBirdState;
 import com.lbi.internetweek.states.PerchState;
 import com.lbi.internetweek.states.TweetState;
@@ -34,7 +38,10 @@ public class Bird
 	public int				mirrored 		=	1;
 	public float			x, y, lx, ly;
 	
-	public Bird[]			birds;
+	public Method			callback;
+	public Tweet 			tweetRef;
+	
+	public ArrayList<Bird>			birds;
 	
 	public boolean			isTweeting		=	false;
 	public boolean			isHurt			=	false;
@@ -48,8 +55,10 @@ public class Bird
 	public PerchState		perchState;
 	public TweetState		tweetState;
 	public FlyingState		flyingState;
+	public HurtState		hurtState;
 	
 	int bw, bh, bhw, bhh;
+	
 	
 	public Bird( Boid boid, VerletParticle2D verletParticle2D )//, Vec2D p )
 	{
@@ -106,34 +115,14 @@ public class Bird
 		perchState		=	new PerchState(this);
 		tweetState		=	new TweetState(this);
 		flyingState		=	new FlyingState(this);
+		hurtState		=	new HurtState(this);
 
 		state = flyingState;
 		setState( flyingState );
 	}
-	
-	// --------------------------------------------------------------------------------------------------------
-	// STATE CHANGING FUNCTIONS
-	// --------------------------------------------------------------------------------------------------------
-		
-	public IBirdState getState() 
-	{
-		return state;
-	}
-
-	public IBirdState getLastState()
-	{
-		return lastState;
-	}
-
-	public void setState(IBirdState state) 
-	{
-		this.lastState = this.state;		
-		this.state.setState( state );
-		this.state.draw();
-	}
 
 	// --------------------------------------------------------------------------------------------------------
-	// PUBLIC FUNCTIONS
+	// DRAW FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
 
 	public void draw()
@@ -165,6 +154,31 @@ public class Bird
 	    ly = y;
 	}
 
+	// --------------------------------------------------------------------------------------------------------
+	// STATE CHANGING FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+		
+	public IBirdState getState() 
+	{
+		return state;
+	}
+
+	public IBirdState getLastState()
+	{
+		return lastState;
+	}
+
+	public void setState(IBirdState state) 
+	{
+		this.lastState = this.state;		
+		this.state.setState( state );
+		this.state.draw();
+	}
+
+	// --------------------------------------------------------------------------------------------------------
+	// PUBLIC FUNCTIONS
+	// --------------------------------------------------------------------------------------------------------
+
 	public PApplet getParent()
 	{
 		return _pa;
@@ -176,12 +190,12 @@ public class Bird
 		return flyingState;
 	}
 
-	public Bird[] getBirds() {
+	public ArrayList<Bird> getBirds() {
 		return birds;
 	}
 
-	public void setBirds(Bird[] birds) {
-		this.birds = birds;
+	public void setBirds(ArrayList<Bird> _birds) {
+		this.birds = _birds;
 	}
 	
 	public VerletParticle2D getParticle() {
@@ -190,6 +204,11 @@ public class Bird
 
 	public Boid getBoid() {
 		return _boid;
+	}
+	
+	public PVector getVec()
+	{
+		return new PVector(x,y);
 	}
 
 

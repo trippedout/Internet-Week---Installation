@@ -20,9 +20,14 @@ public class AppProxy extends Proxy
 	public static final int 	NUM_BIRDS		=	20;
 	public static final float 	BIRD_MIN_SCALE 	=	0.4f;
 	
+	public static final int 	MIN_DIST 		= 	65;
+	public static final int 	MIN_POWER 		=	65;
+	
 	public static PImage 		_birdImage;
 
 	private int	_mode			=	MODE_NORMAL;
+	
+	//private 
 	
 	public AppProxy()
 	{

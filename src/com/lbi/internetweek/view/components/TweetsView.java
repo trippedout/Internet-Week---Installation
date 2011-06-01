@@ -2,7 +2,9 @@ package com.lbi.internetweek.view.components;
 
 import java.util.ArrayList;
 
+import processing.core.PConstants;
 import processing.core.PFont;
+import processing.core.PImage;
 
 import twitter4j.Status;
 
@@ -18,6 +20,8 @@ public class TweetsView
 	private ArrayList<Tweet>	_queue		=	new ArrayList<Tweet>();
 	private ArrayList<Tweet>	_tweets		=	new ArrayList<Tweet>();
 	
+	public PImage				little, medium, large;
+	
 	PFont						_font;
 	Bird						_currentBird	=	null;
 	Tweet						_currentTweet	=	null;
@@ -27,16 +31,20 @@ public class TweetsView
 		_pa			=	ApplicationFacade.app;
 		_mediator 	=	tweetMediator;
 		
+		little   	= 	_pa.loadImage( "bubble/little.png" );
+		medium   	= 	_pa.loadImage( "bubble/medium.png" );
+		large    	=	_pa.loadImage( "bubble/large.png" );
+		
 		_font		=	_pa.loadFont("DroidSansMono-16.vlw");
+		_pa.textAlign(PConstants.CENTER);
 		_pa.textFont(_font);
-		_pa.textSize(16);
 	}
 
 	public void addTweetToQueue(Status status)
 	{
 		String str 		=	getTweetString( status );
 		
-		_queue.add( new Tweet( str ) );
+		_queue.add( new Tweet( str, this ) );
 		
 		checkQueue();
 	}
@@ -47,10 +55,11 @@ public class TweetsView
 		{
 			if( _queue.size() > 0 )
 			{
-				_mediator.getTweetBird();
 				_currentTweet = _queue.remove(0);
+				_mediator.getTweetBird();
+				_currentTweet.animateIn();
 			}
-		}		
+		}
 	}
 
 	public void draw()
@@ -78,7 +87,16 @@ public class TweetsView
 
 	public void setCurrentBird(Bird bird)
 	{
-		this._currentBird = bird;
+		this._currentBird 			= 	bird;		
+		//this._currentBird.tweetRef 	=	_currentTweet;
+		
+		try 
+		{
+			//this._currentBird.callback = _currentTweet.getClass().getMethod( "animateIn", new Class[] {} );			
+		} 
+		catch (Exception e) 
+		{
+		}		
 	}
 
 	private String getTweetString(Status status)

@@ -1,5 +1,7 @@
 package com.lbi.internetweek.view.components;
 
+import java.util.ArrayList;
+
 import hypermedia.video.Blob;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -26,7 +28,7 @@ public class BirdsView
 	private Flock				_flock;
 	private VerletPhysics2D		_physics;
 
-	private Bird[]	        			_birds				=	new Bird[AppProxy.NUM_BIRDS];
+	private ArrayList<Bird>    			_birds				=	new ArrayList<Bird>(AppProxy.NUM_BIRDS);
 	private int                   		_numAttractors 		=	20;
 	private AttractionBehavior[]  		_attractionPool 	= 	new AttractionBehavior[_numAttractors];
 	
@@ -53,9 +55,11 @@ public class BirdsView
 		for( int i = 0; i < AppProxy.NUM_BIRDS; ++i )
 		{
 			_flock.add();
+			
+			Bird b = new Bird( _flock.get(i), _physics.particles.get(i) );
+			b.setBirds(_birds);
 
-			_birds[i] = new Bird( _flock.get(i), _physics.particles.get(i) );			
-			_birds[i].setBirds(_birds);
+			_birds.add(b);
 		}
 	}
 
@@ -76,14 +80,19 @@ public class BirdsView
 	public void update()
 	{
 		_flock.update();
+		_kinect.checkBirds(_birds);
+	}
+
+	private void checkHitBird()
+	{
+				
 	}
 
 	public void draw()
 	{
 		for( int i = 0; i < AppProxy.NUM_BIRDS; ++i )
 		{
-			Bird b = _birds[i];
-			b.draw();
+			_birds.get(i).draw();
 		}
 	}
 	
@@ -95,8 +104,12 @@ public class BirdsView
 			return setTwitterBird();
 		else
 		{
+			_birds.remove(b);
+			_birds.add(b);
+			
 			b.setState(b.tweetState);
 			b.isTweeting = true;			
+			
 			_tweetingBird = b;
 			return b;
 		}
@@ -114,7 +127,7 @@ public class BirdsView
 
 	public Bird getRandomBird()
 	{
-		return _birds[ _pa.floor( _pa.random(AppProxy.NUM_BIRDS) ) ];
+		return _birds.get( _pa.floor( _pa.random(AppProxy.NUM_BIRDS) ) );
 	}
 
 	public void testState() 

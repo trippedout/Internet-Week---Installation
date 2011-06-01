@@ -25,23 +25,10 @@ public class BirdState implements IBirdState {
 	}
 
 	@Override
-	public boolean setTweetState() 
-	{
-		bird.setState(bird.tweetState);
-		return true;
-	}
-
-	@Override
 	public void setState(IBirdState state)
 	{
-		if( state instanceof TweetState )
-		{
-			bird.setState(bird.tweetState);
-		}
-		else if( state instanceof FlyingState )
-		{
-			bird.setState(bird.flyingState);
-		}		
+		bird.isTweeting = false;
+		bird.isHurt = false;
 	}
 
 }
