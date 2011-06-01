@@ -2,7 +2,7 @@ package com.lbi.internetweek.utils;
 
 import java.lang.reflect.Method;
 
-import com.lbi.internetweek.view.KinectMediator;
+import com.lbi.internetweek.model.KinectProxy;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -10,7 +10,7 @@ import SimpleOpenNI.SimpleOpenNI;
 
 public class OpenNIWrapper extends SimpleOpenNI
 {
-	protected KinectMediator 		_mediator;
+	protected KinectProxy 		_mediator;
 	
 	public OpenNIWrapper(PApplet arg0, int arg1)
 	{
@@ -23,7 +23,7 @@ public class OpenNIWrapper extends SimpleOpenNI
 		//empty so that setCallbacks works.
 	}
 	
-	public void setCallbacks(KinectMediator kinectMediator)
+	public void setCallbacks(KinectProxy kinectMediator)
 	{		
 		_mediator = kinectMediator;
 		

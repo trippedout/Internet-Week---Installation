@@ -18,10 +18,11 @@ public class MainDrawCommand extends SimpleCommand
 			.draw();
 		
 		( (KinectMediator) this.facade.retrieveMediator(KinectMediator.NAME) )
+			.getKinectView()
 			.draw();
 		
 		( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
-			.getBirds()
+			.getBirdsView()
 			.draw();
 		
 		( (TweetsMediator) this.facade.retrieveMediator(TweetsMediator.NAME) )

@@ -10,6 +10,7 @@ import org.puremvc.java.interfaces.ICommand;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
 
+import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.BackgroundMediator;
 import com.lbi.internetweek.view.BirdsMediator;
 import com.lbi.internetweek.view.KinectMediator;

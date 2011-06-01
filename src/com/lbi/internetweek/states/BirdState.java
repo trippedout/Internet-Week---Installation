@@ -31,4 +31,17 @@ public class BirdState implements IBirdState {
 		return true;
 	}
 
+	@Override
+	public void setState(IBirdState state)
+	{
+		if( state instanceof TweetState )
+		{
+			bird.setState(bird.tweetState);
+		}
+		else if( state instanceof FlyingState )
+		{
+			bird.setState(bird.flyingState);
+		}		
+	}
+
 }

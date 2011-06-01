@@ -5,9 +5,9 @@ import org.puremvc.java.patterns.command.SimpleCommand;
 import org.puremvc.java.patterns.facade.Facade;
 
 import com.lbi.internetweek.ApplicationFacade;
+import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.model.PhysicsProxy;
 import com.lbi.internetweek.view.BirdsMediator;
-import com.lbi.internetweek.view.KinectMediator;
 
 public class MainUpdateCommand extends SimpleCommand
 {
@@ -15,13 +15,15 @@ public class MainUpdateCommand extends SimpleCommand
 	{
 		Facade f = ApplicationFacade.getInstance();
 		
-		PhysicsProxy physics	=	(PhysicsProxy) f.retrieveProxy(PhysicsProxy.NAME);
-		physics.getPhysics().update();
+		( (PhysicsProxy) this.facade.retrieveProxy(PhysicsProxy.NAME) )
+			.getPhysics()
+			.update();
 		
-		KinectMediator kinect	=	(KinectMediator) f.retrieveMediator(KinectMediator.NAME);		
-		kinect.update();
+		( ( KinectProxy) this.facade.retrieveProxy(KinectProxy.NAME) )		
+			.update();
 		
-		BirdsMediator birds 	=	(BirdsMediator) f.retrieveMediator(BirdsMediator.NAME);
-		birds.getBirds().update();
+		( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
+			.getBirdsView()
+			.update();
 	}
 }

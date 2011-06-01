@@ -17,7 +17,9 @@ public class AppProxy extends Proxy
 	final public static int 	MODE_GAME		=	1;
 	final public static int 	MODE_DANCE		=	2;
 	
-	public static final int 	NUM_BIRDS		=	20;	
+	public static final int 	NUM_BIRDS		=	20;
+	public static final float 	BIRD_MIN_SCALE 	=	0.4f;
+	
 	public static PImage 		_birdImage;
 
 	private int	_mode			=	MODE_NORMAL;

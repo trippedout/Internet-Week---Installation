@@ -2,7 +2,6 @@ package com.lbi.internetweek.view;
 
 import org.puremvc.java.patterns.mediator.Mediator;
 
-import com.lbi.internetweek.controller.ModeChangeCommand;
 import com.lbi.internetweek.controller.TweetReadyForBirdCommand;
 import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.view.components.Bird;

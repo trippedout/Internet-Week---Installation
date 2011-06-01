@@ -2,6 +2,8 @@ package com.lbi.internetweek.controller;
 
 import org.puremvc.java.patterns.command.MacroCommand;
 
+import com.lbi.internetweek.ApplicationFacade;
+
 public class StartupCommand extends MacroCommand
 {	
 	@Override
@@ -9,5 +11,7 @@ public class StartupCommand extends MacroCommand
 	{
 		addSubCommand(new PrepModelCommand());
 		addSubCommand(new PrepViewCommand());
+		
+		this.facade.removeCommand(ApplicationFacade.STARTUP);
 	}
 }

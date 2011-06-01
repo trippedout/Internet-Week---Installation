@@ -53,7 +53,7 @@ public class BirdsView
 
 			_birds[i] = new Bird( _flock.get(i), _physics.particles.get(i) );			
 			_birds[i].setBirds(_birds);
-		}		
+		}
 	}
 
 	private void createAttractors() 

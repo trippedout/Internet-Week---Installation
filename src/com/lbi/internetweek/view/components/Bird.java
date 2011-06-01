@@ -28,9 +28,10 @@ public class Bird
 	public VerletParticle2D		_vp;
 	public Boid					_boid;
 	public PVector				_velocity	=	new PVector();
-	
-	public int				mirrored = 1;
-	public float 			scale = .4f;
+
+	public float 			scale			=	AppProxy.BIRD_MIN_SCALE;
+	public float			rotation		=	0;
+	public int				mirrored 		=	1;
 	public float			x, y, lx, ly;
 	
 	public Bird[]			birds;
@@ -42,8 +43,8 @@ public class Bird
 	private PImage 			_birdImage;	
 	
 	//states
-	IBirdState				state;
-	IBirdState				lastState;
+	public IBirdState		state;
+	public IBirdState		lastState;
 	public PerchState		perchState;
 	public TweetState		tweetState;
 	public FlyingState		flyingState;
@@ -113,7 +114,7 @@ public class Bird
 	// --------------------------------------------------------------------------------------------------------
 	// STATE CHANGING FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
-
+		
 	public IBirdState getState() 
 	{
 		return state;
@@ -126,14 +127,9 @@ public class Bird
 
 	public void setState(IBirdState state) 
 	{
-		this.lastState = this.state;
-		this.state = state;
+		this.lastState = this.state;		
+		this.state.setState( state );
 		this.state.draw();
-	}
-
-	public boolean setTweetState()
-	{
-		return state.setTweetState();
 	}
 
 	// --------------------------------------------------------------------------------------------------------
@@ -153,8 +149,7 @@ public class Bird
 			_pa.pushMatrix();
 		    	_pa.translate( x, y );
 		    	_pa.scale(mirrored * scale, scale);
-		    	//_pa.rotate( _pa.atan2(_velocity.y, _velocity.x) );
-		    	
+		    	//_pa.rotate( rotation );		    	
 		    	_pa.noStroke();
 		    	_pa.beginShape();
 		    	_pa.texture(birdTexture);

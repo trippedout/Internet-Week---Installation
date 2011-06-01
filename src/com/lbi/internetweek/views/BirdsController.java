@@ -148,6 +148,7 @@ public class BirdsController
 		{
 			Bird b = getRandomBird();
 			
+			/*
 			if( b.setTweetState() )
 			{				
 				_tweetIsShowing 	=	true;
@@ -160,6 +161,7 @@ public class BirdsController
 			}
 			else
 				checkQueue();
+				//*/
 		}
 	}
 

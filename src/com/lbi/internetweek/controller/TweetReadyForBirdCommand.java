@@ -17,7 +17,7 @@ public class TweetReadyForBirdCommand extends SimpleCommand
 			.getTweets()
 			.setCurrentBird(
 					( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME) )
-						.getBirds()
+						.getBirdsView()
 						.setTwitterBird()
 					);
 	}

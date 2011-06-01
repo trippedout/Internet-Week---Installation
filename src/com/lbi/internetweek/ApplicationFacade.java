@@ -8,6 +8,10 @@ import com.lbi.internetweek.controller.MainDrawCommand;
 import com.lbi.internetweek.controller.StartupCommand;
 import com.lbi.internetweek.controller.TwitterUpdateCommand;
 import com.lbi.internetweek.controller.MainUpdateCommand;
+import com.lbi.internetweek.controller.kinect.ContactsUpdatedCommand;
+import com.lbi.internetweek.controller.kinect.FoundUserCommand;
+import com.lbi.internetweek.controller.kinect.LostUserCommand;
+import com.lbi.internetweek.model.KinectProxy;
 
 public class ApplicationFacade extends Facade
 {
@@ -40,6 +44,11 @@ public class ApplicationFacade extends Facade
 		registerCommand( UPDATE, new MainUpdateCommand() );
 		registerCommand( KEY_PRESSED, new KeyPressedCommand() );
 		registerCommand( TWITTER_UPDATED, new TwitterUpdateCommand() );
+		
+		//for kinect
+		registerCommand( KinectProxy.NEW_USER, new FoundUserCommand() );
+		registerCommand( KinectProxy.LOST_USER, new LostUserCommand() );
+		registerCommand( KinectProxy.CONTACTS_UPDATED, new ContactsUpdatedCommand() );
 	}
 
 	public void startup(Installation $app)

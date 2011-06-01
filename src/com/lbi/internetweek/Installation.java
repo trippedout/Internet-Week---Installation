@@ -19,6 +19,8 @@ import com.lbi.internetweek.utils.Stats;
 import com.lbi.internetweek.view.components.BackgroundView;
 import com.lbi.internetweek.view.components.Bird;
 
+import de.looksgood.ani.Ani;
+
 import toxi.geom.Rect;
 import toxi.geom.Vec2D;
 import toxi.physics2d.behaviors.*;
@@ -56,6 +58,8 @@ public class Installation extends PApplet
 		//processing calls
 		//-------------------------------------
 		size( 1280, 960, OPENGL );
+		
+		Ani.init(this);
 		
 		_facade = ApplicationFacade.getInst();
 		_facade.startup(this);
