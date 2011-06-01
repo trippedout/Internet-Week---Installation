@@ -29,14 +29,6 @@ public class BackgroundMediator extends Mediator
 		return background;
 	}
 
-	public void handleNotification(INotification note)
-	{
-		if( note.getName().equals(ApplicationFacade.DRAW) )
-		{
-			System.out.println("BG NOTE DRAW");
-		}
-	}
-	
 	public void draw()
 	{
 		getBackground().draw();

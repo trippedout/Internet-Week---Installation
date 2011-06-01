@@ -32,9 +32,9 @@ public class KinectProxy extends Proxy
 	int             _kWidth, _kHeight;
 	int             _nearThreshold, _farThreshold;
 
-	PVector 		jointPos 			= 	new PVector();
-	PVector 		realPos				= 	new PVector();
-	int 			currentUser;
+	private PVector 		jointPos 			= 	new PVector();
+	private PVector 		realPos				= 	new PVector();
+	public int 				currentUser			=	-1;
 
 	public Vector2D	headVector			=	new Vector2D();
 	public Vector2D	leftHandVector		=	new Vector2D();
@@ -80,7 +80,7 @@ public class KinectProxy extends Proxy
 		int w=640, h=480;
 
 		//update depth image for use in opencv
-		if( _pa.frameCount % 4 == 0 )
+		if( _pa.frameCount % 2 == 0 )
 		{
 			dpos = 0;
 			pos = 0;
@@ -121,19 +121,21 @@ public class KinectProxy extends Proxy
 	}
 
 	private void updateContacts(int userId) 
-	{			
-		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_HEAD, jointPos );		
-		_context.convertRealWorldToProjective(jointPos, realPos);
-		headVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
-		
-		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_RIGHT_HAND, jointPos );		
-		_context.convertRealWorldToProjective(jointPos, realPos);
-		rightHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );		
-
-		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_LEFT_HAND, jointPos );		
-		_context.convertRealWorldToProjective(jointPos, realPos);
-		leftHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
-		
+	{
+		if( _pa.frameCount % 2 == 0 )
+		{
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_HEAD, jointPos );		
+			_context.convertRealWorldToProjective(jointPos, realPos);
+			headVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
+			
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_RIGHT_HAND, jointPos );		
+			_context.convertRealWorldToProjective(jointPos, realPos);
+			rightHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );		
+	
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_LEFT_HAND, jointPos );		
+			_context.convertRealWorldToProjective(jointPos, realPos);
+			leftHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
+		}		
 		//this.facade.sendNotification(CONTACTS_UPDATED, this);
 	}
 

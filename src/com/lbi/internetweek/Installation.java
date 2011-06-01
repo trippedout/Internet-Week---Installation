@@ -57,7 +57,7 @@ public class Installation extends PApplet
 	{
 		//processing calls
 		//-------------------------------------
-		size( screenWidth, screenHeight, OPENGL );
+		size( 1280, 960, OPENGL );
 		
 		Ani.init(this);
 		

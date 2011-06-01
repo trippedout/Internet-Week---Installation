@@ -23,7 +23,7 @@ public class BackgroundView
 	public void loadImages()
 	{
 		//grass		=	p.loadImage("grass.png");
-		bg			=	p.loadImage("bg.png");
+		bg			=	p.loadImage("bg_right.png");
 	}
 	
 	public void draw()
@@ -38,8 +38,8 @@ public class BackgroundView
 		p.vertex(0,0);
 		p.vertex(p.width,0);
 		p.fill(c2);
-		p.vertex(0,p.height);
-		p.vertex(p.width,p.height);
+		p.vertex(0,p.height - 200);
+		p.vertex(p.width,p.height - 200);
 		p.endShape();
 		
 		//draw clouds
@@ -78,7 +78,7 @@ public class BackgroundView
 	
 	//day vals for lower color start: low r, low g, low b, low r end, low b end, low b end
 	int lr = 255, lg = 255, lb = 255;
-	int lre = 237, lge = 153, lbe = 80;
+	int lre = 255, lge = 200, lbe = 99;
 	
 	private int getLowColor(float d) 
 	{
@@ -94,8 +94,8 @@ public class BackgroundView
 	}
 	
 	//day vals for higher color start: high r, high g, high b, high r end, high b end, high b end
-	int hr = 200, hg = 230, hb = 255;
-	int hre = 0, hge = 45, hbe = 100;
+	int hr = 159, hg = 213, hb = 255;
+	int hre = 57, hge = 81, hbe = 195;
 	
 	private int getHighColor(float d) 
 	{

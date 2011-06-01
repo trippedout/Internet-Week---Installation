@@ -11,6 +11,7 @@ import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.events.TwitterEvent;
 import com.lbi.internetweek.events.TwitterEventListener;
 import com.lbi.internetweek.model.AppProxy;
+import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.model.PhysicsProxy;
 import com.lbi.internetweek.view.BirdsMediator;
 import com.lbi.internetweek.view.boids.Flock;
@@ -18,7 +19,8 @@ import com.lbi.internetweek.views.TweetView;
 
 public class BirdsView 
 {
-	private BirdsMediator 		_mediator;	
+	private BirdsMediator 		_mediator;
+	private KinectProxy			_kinect;
 	private PApplet 			_pa;
 	private PImage        		_birdImage;
 	private Flock				_flock;
@@ -30,10 +32,11 @@ public class BirdsView
 	
 	private Bird				_tweetingBird;
 
-	public BirdsView(BirdsMediator mediator)
+	public BirdsView(BirdsMediator mediator, KinectProxy kinectProxy)
 	{
 		_pa 			=	(PApplet) ApplicationFacade.app;
 		_mediator 		=	mediator;		
+		_kinect			=	kinectProxy;
 		_physics		=	PhysicsProxy.getPhysics();
 
 		_flock			=	new Flock(_pa);

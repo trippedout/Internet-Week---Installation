@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="Jars/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="Jars/jogl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="InternetWeek/bin"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/atripaldi/Documents/Processing/EclipseProjects/InternetWeek/bin"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="Jars/OpenCV.jar"/>

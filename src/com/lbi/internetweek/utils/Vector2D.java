@@ -5,7 +5,7 @@ import processing.core.PVector;
 public class Vector2D extends PVector 
 {
 	protected float 	lx = 0, ly = 0, lz = 0;
-	public PVector 	velocity;
+	public PVector 		velocity = new PVector();
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -19,11 +19,25 @@ public class Vector2D extends PVector
 		this.x = nx;
 		this.y = ny;
 		this.z = nz;
+				
+		velocity.x = nx - lx;
+		velocity.y = ny - ly;
+		velocity.z = nz - lz;
 	}
 	
 	public PVector getVelocity()
 	{
-		return new PVector(this.x - lx, this.y - ly, this.z - lz);
+		return velocity;
+	}
+	
+	/**
+	 * Simple function to find the magnitude of the velocity, used in MPH tracking.
+	 * @return
+	 */
+	
+	public float vmag()
+	{
+		return velocity.mag();
 	}
 
 }

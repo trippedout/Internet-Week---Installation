@@ -10,6 +10,7 @@ import com.lbi.internetweek.Installation;
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.KinectMediator;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 public class KinectView
@@ -90,7 +91,7 @@ public class KinectView
 
 		 if( DRAW_CONTACTS )
 		 {
-			 //if( currentUser > 0)
+			 if( _proxy.currentUser > 0)
 				 drawContacts();
 		 }
 		 //*/
@@ -177,16 +178,23 @@ public class KinectView
 	
 	private void drawContacts() 
 	{
-		//_pa.println("drawContacts");
+		/*
+		PApplet.println( "Left Veloctiy: " + _proxy.leftHandVector.getVelocity() 
+						+ " Right Velocity: " + _proxy.rightHandVector.getVelocity() 
+						);
+		
+		PApplet.println( "Left Mag: " + _proxy.leftHandVector.getVelocity().mag() 
+						+ " Right Mag: " + _proxy.rightHandVector.getVelocity().mag() 
+						);						
+		//*/
 
 		_pa.fill( 255, 0, 0 );
 		_pa.noStroke();
-		//_pa.ellipse(headVector.x, headVector.y, contactSize, contactSize);
+//		_pa.ellipse(headVector.x, headVector.y, contactSize, contactSize);
 		_pa.ellipse( _proxy.rightHandVector.x, _proxy.rightHandVector.y, contactSize, contactSize );
 		_pa.ellipse( _proxy.leftHandVector.x, _proxy.leftHandVector.y, contactSize, contactSize );		
 		_pa.noFill();
 	}
-	//*/
 	
 	public PImage getRGBImage()
 	{
