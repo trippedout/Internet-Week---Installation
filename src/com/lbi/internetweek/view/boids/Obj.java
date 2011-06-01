@@ -1,20 +1,15 @@
 package com.lbi.internetweek.view.boids;
 
-import processing.core.PVector;
+import com.lbi.internetweek.utils.Vector2D;
 
 public class Obj
 {
 	Flock fl;
-	PVector pos;
-	PVector vel;
+	Vector2D pos;
 	int rad = 45;
 	int aura;
 
-	Obj(Flock flock, PVector p){
-		init( flock, p );
-	}
-	
-	void init(Flock flock, PVector p)
+	public Obj(Flock flock, Vector2D p)
 	{
 		fl = flock;
 		pos = p;

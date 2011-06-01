@@ -2,6 +2,8 @@ package com.lbi.internetweek.view.boids;
 
 import java.util.ArrayList;
 
+import com.lbi.internetweek.utils.Vector2D;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -116,7 +118,7 @@ public class Flock
 	/**
 	 * Add a object to Obstruction list by defined vector
 	 */
-	public void addObj(PVector p)
+	public void addObj(Vector2D p)
 	{
 		objList.add( new Obj(this,p) );
 	}
