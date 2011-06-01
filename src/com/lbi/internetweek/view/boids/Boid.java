@@ -134,7 +134,7 @@ public class Boid
 		if(!loopZone)
 		{
 			// When a boid approach a side, an opposite vector is added to velocity (bounce)
-			float efficiency = .03f;
+			float efficiency = .01f;
 			// efficiency ~ 10 : boids immediately rejected
 			// efficiency ~ .1  : boids slowly change direction
 			PVector v = new PVector();

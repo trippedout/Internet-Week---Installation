@@ -10,7 +10,7 @@ public class FoundUserCommand extends SimpleCommand
 {
 	public void execute(INotification note)
 	{
-		KinectProxy kinect = (KinectProxy) this.facade.retrieveMediator(KinectProxy.NAME );
+		KinectProxy kinect = (KinectProxy) this.facade.retrieveProxy(KinectProxy.NAME );
 		
 		( (BirdsMediator) this.facade.retrieveMediator(BirdsMediator.NAME ) )
 			.getBirdsView()

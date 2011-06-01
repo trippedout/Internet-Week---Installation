@@ -30,6 +30,9 @@ public class KinectView
 
 	public PImage         	_depthImage, _rgbImage;
 	
+	private int				contactSize			=	20;
+	private int				contactColor		=	0xff0000;
+	
 	private Blob[]          blobs;
 	private Blob            blob;
 	private int				blobCounter = 0;
@@ -83,10 +86,11 @@ public class KinectView
 			 if(_context.isTrackingSkeleton(1))
 				 drawSkeleton(1);
 		 }
+		 //*/
 
 		 if( DRAW_CONTACTS )
 		 {
-			 if( currentUser > 0)
+			 //if( currentUser > 0)
 				 drawContacts();
 		 }
 		 //*/
@@ -169,17 +173,18 @@ public class KinectView
 
 		_pa.noStroke();
 	}
-
+	//*/
+	
 	private void drawContacts() 
 	{
 		//_pa.println("drawContacts");
 
 		_pa.fill( 255, 0, 0 );
 		_pa.noStroke();
-		_pa.ellipse(headVector.x, headVector.y, contactSize, contactSize);
-		_pa.ellipse(rightHandVector.x, rightHandVector.y, contactSize, contactSize);
-		_pa.ellipse(leftHandVector.x, leftHandVector.y, contactSize, contactSize);		
-		_pa.noFill();		
+		//_pa.ellipse(headVector.x, headVector.y, contactSize, contactSize);
+		_pa.ellipse( _proxy.rightHandVector.x, _proxy.rightHandVector.y, contactSize, contactSize );
+		_pa.ellipse( _proxy.leftHandVector.x, _proxy.leftHandVector.y, contactSize, contactSize );		
+		_pa.noFill();
 	}
 	//*/
 	

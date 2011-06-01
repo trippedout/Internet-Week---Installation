@@ -37,8 +37,6 @@ public class KinectProxy extends Proxy
 
 	PVector 		jointPos 			= 	new PVector();
 	PVector 		realPos				= 	new PVector();
-	int				contactSize			=	20;
-	int				contactColor		=	0xff0000;
 	int 			currentUser;
 
 	public PVector 	headVector			=	new PVector();
@@ -129,20 +127,17 @@ public class KinectProxy extends Proxy
 	{				
 		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_HEAD, jointPos );		
 		_context.convertRealWorldToProjective(jointPos, realPos);
-		headVector.x = mapXToScreen(realPos.x);
-		headVector.y = mapYToScreen(realPos.y);		
-
+		headVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
+		
 		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_RIGHT_HAND, jointPos );		
 		_context.convertRealWorldToProjective(jointPos, realPos);
-		rightHandVector.x = mapXToScreen(realPos.x);
-		rightHandVector.y = mapYToScreen(realPos.y);		
+		rightHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );		
 
 		_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_LEFT_HAND, jointPos );		
 		_context.convertRealWorldToProjective(jointPos, realPos);
-		leftHandVector.x = mapXToScreen(realPos.x);
-		leftHandVector.y = mapYToScreen(realPos.y);
-
-		this.facade.sendNotification(CONTACTS_UPDATED, this);
+		leftHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
+		
+		//this.facade.sendNotification(CONTACTS_UPDATED, this);
 	}
 
 	public void killUsers()

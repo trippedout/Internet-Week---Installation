@@ -6,16 +6,12 @@ public class Obj
 {
 	Flock fl;
 	PVector pos;
-	int rad = 75;
+	PVector vel;
+	int rad = 45;
 	int aura;
 
-	Obj()
-	{
-		//init(boids.zone.randomPos());
-	}
-	
 	Obj(Flock flock, PVector p){
-		init(flock, p );
+		init( flock, p );
 	}
 	
 	void init(Flock flock, PVector p)
