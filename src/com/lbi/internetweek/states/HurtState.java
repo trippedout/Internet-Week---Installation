@@ -8,7 +8,7 @@ import com.lbi.internetweek.view.components.Bird;
 
 public class HurtState extends BirdState
 {
-	private int MULTIPLIER = 40;
+	private int MULTIPLIER = 35;
 	
 	public PVector startingPosition;
 	public PVector startingVelocity;
@@ -47,11 +47,12 @@ public class HurtState extends BirdState
 		
 		if( bird.x < 50 || bird.x > bird.getParent().width - 100 )
 		{
-			v.x *= -.35f;			
+			v.x *= -.8f;			
 		}		
 		if( bird.y < 50 || bird.y > bird.getParent().height - 200 )
 		{
-			v.y *= -.35f;			
+			v.y *= -.8f;
+			v.x *= .9f;
 		}	
 
 		bird.getParticle()

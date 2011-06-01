@@ -72,7 +72,8 @@ public class Installation extends PApplet
 		_facade.update();
 		_facade.draw();
 		
-		_stats.draw(0,0);
+		if( mousePressed )
+			_stats.draw(0,0);
 		
 		/*
 		birds.updatePhysics(blob);

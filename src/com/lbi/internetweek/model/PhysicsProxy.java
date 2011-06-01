@@ -38,8 +38,8 @@ public class PhysicsProxy extends Proxy
 				_app.height - 180
 				)
 		);
-		_physics.addBehavior( new GravityBehavior( new Vec2D( 0, 0.8f ) ) );
-		_physics.setDrag( 0.01f );
+		_physics.addBehavior( new GravityBehavior( new Vec2D( 0, 0.92f ) ) );
+		_physics.setDrag( 0.02f );
 		
 		for( int i = 0; i < AppProxy.NUM_BIRDS; ++i )
 		{
