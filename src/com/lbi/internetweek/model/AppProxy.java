@@ -33,6 +33,8 @@ public class AppProxy extends Proxy
 	public static final int 	MIN_POWER 		=	65;
 	
 	public static PFont			_scoreFont;
+	public static PFont			_scoreTextFont;
+	public static PFont			_tweetFont;
 	
 	public static PImage 		_birdImage;
 	
@@ -71,8 +73,8 @@ public class AppProxy extends Proxy
 		
 	private void initScoreVectors()
 	{
-		_leftScore		=	new PVector( 150, _pa.height - 120 );
-		_rightScore		=	new PVector( _pa.width - 150, _pa.height - 120 );
+		_leftScore		=	new PVector( 165, _pa.height - 85 );
+		_rightScore		=	new PVector( _pa.width - 165, _pa.height - 85 );
 	}
 
 	private void initBGs()
@@ -83,8 +85,8 @@ public class AppProxy extends Proxy
 
 	private void initFlockRects()
 	{
-		_leftRect		=	new Rect( -105, 40, _pa.width, _pa.height-200 );
-		_rightRect		=	new Rect( 105, 40, _pa.width, _pa.height-200 );
+		_leftRect		=	new Rect( -105, 75, _pa.width, _pa.height-275 );
+		_rightRect		=	new Rect( 105, 75, _pa.width, _pa.height-275 );
 	}
 
 	public void setScreen(int screen)
@@ -116,10 +118,30 @@ public class AppProxy extends Proxy
     {
     	if( _scoreFont == null )
     	{
-    		_scoreFont = ApplicationFacade.app.createFont("Arial", 72);
+    		_scoreFont = ApplicationFacade.app.loadFont("Meloriac-Regular-56.vlw");
     	}
     	
     	return _scoreFont;
+    }
+    
+    public static PFont getScoreTextFont()
+    {
+    	if( _scoreTextFont == null )
+    	{
+    		_scoreTextFont = ApplicationFacade.app.loadFont("Meloriac-Regular-17.vlw");
+    	}
+    	
+    	return _scoreTextFont;
+    }
+    
+    public static PFont getTweetFont()
+    {
+    	if( _tweetFont == null )
+    	{
+    		_tweetFont = ApplicationFacade.app.createFont("Arial",14);
+    	}
+    	
+    	return _tweetFont;
     }
     
     public static void setBirdImage( PImage bi )

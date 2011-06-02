@@ -32,10 +32,16 @@ public class GUIViewScore
 	public void draw()
 	{	
 		_pa.fill(255);
-		_pa.textFont( AppProxy.getScoreFont() );
 		_pa.textAlign(PConstants.CENTER);
-		_pa.textSize(72);
-		_pa.text(_score, 0, 0);
+		
+		_pa.textFont( AppProxy.getScoreTextFont() );
+		_pa.textSize(17);
+		_pa.text("BIRDS SMACKED:", 0, -22);
+		
+		_pa.textFont( AppProxy.getScoreFont() );
+		_pa.textSize(56);
+		_pa.text(_score, 0, 30);
+		
 		_pa.noFill();
 	}
 

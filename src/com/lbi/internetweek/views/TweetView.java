@@ -12,6 +12,7 @@ import twitter4j.Status;
 
 import com.lbi.internetweek.events.TwitterEvent;
 import com.lbi.internetweek.events.TwitterEventListener;
+import com.lbi.internetweek.model.AppProxy;
 
 public class TweetView 
 {
@@ -80,6 +81,7 @@ public class TweetView
 			_pa.endShape();
 			
 			_pa.fill(0x333333);
+			_pa.textFont(AppProxy.getTweetFont());
 			_pa.textAlign(_pa.CENTER);
 			_pa.text(_tweet, sx + 20, sy + 40, w-25, h);
 			_pa.noFill();

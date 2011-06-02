@@ -40,9 +40,12 @@ public class KinectProxy extends Proxy
 	int             _kWidth, _kHeight;
 	int             _nearThreshold, _farThreshold;
 
-	private PVector 		jointPos 			= 	new PVector();
-	private PVector 		realPos				= 	new PVector();
-	public int 				currentUser			=	-1;
+	private PVector 		jointPos 				= 	new PVector();
+	private PVector 		realPos					= 	new PVector();
+	
+	public int 				currentUser				=	-1;
+	public int	 			currentlyCalibrating 	=	-1;
+	private float 			lastMag;
 
 	public Vector2D	headVector			=	new Vector2D();
 	public Vector2D	leftHandVector		=	new Vector2D();
@@ -79,13 +82,15 @@ public class KinectProxy extends Proxy
 	// --------------------------------------------------------------------------------------------------------
 	// PUBLIC FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
-
+	
+	int i, j, c1, c2, dpos, pos;
+	int w=640, h=480;
+	
 	public void update() 
 	{
 		_context.update();
 
-		int i, j, c1, c2, dpos, pos;
-		int w=640, h=480;
+		
 
 		//update depth image for use in opencv
 		if( _pa.frameCount % 2 == 0 )
@@ -169,7 +174,8 @@ public class KinectProxy extends Proxy
 	// SCORING
 	// --------------------------------------------------------------------------------------------------------
 	
-	private float lastMag;
+	float dl, dr, lvmag, rvmag;
+	PVector normal = new PVector(0,1);
 	
 	public void checkBirds(ArrayList<Bird> birds)
 	{
@@ -181,19 +187,19 @@ public class KinectProxy extends Proxy
 				{
 					Bird b 		= 	birds.get(i);
 					
-					if( !b.isHurt && !b.isTweeting && b.state instanceof FlyingState )
+					if( !b.isHurt && !b.isTweeting )// && b.state instanceof FlyingState )
 					{
-						float dl	=	PVector.dist(b.getVec(), leftHandVector);
-						float dr	=	PVector.dist(b.getVec(), rightHandVector);
+						dl	=	PVector.dist(b.getVec(), leftHandVector);
+						dr	=	PVector.dist(b.getVec(), rightHandVector);
 						
-						float lvmag =	leftHandVector.vmag();
-						float rvmag =	rightHandVector.vmag();
+						lvmag =	leftHandVector.vmag();
+						rvmag =	rightHandVector.vmag();
 						
 						if( dr < AppProxy.MIN_DIST && rvmag > AppProxy.MIN_POWER && rvmag != lastMag )
 						{
 							//PApplet.println( "\nBird: " + i + " dist: " + dr + " mag:" + rvmag );
 							
-							b.hurtState.startingVelocity = rightHandVector.getVelocity().normalize(new PVector(0,1));							
+							b.hurtState.startingVelocity = rightHandVector.getVelocity().normalize(normal);							
 							b.setState(b.hurtState);
 							
 							lastMag = rvmag;
@@ -208,7 +214,7 @@ public class KinectProxy extends Proxy
 						{
 							//PApplet.println( "\nBird: " + i + " dist: " + dl + " mag:" + lvmag );
 							
-							b.hurtState.startingVelocity = leftHandVector.getVelocity().normalize(new PVector(0,1));							
+							b.hurtState.startingVelocity = leftHandVector.getVelocity().normalize(normal);							
 							b.setState(b.hurtState);
 							
 							lastMag = lvmag;
@@ -265,6 +271,7 @@ public class KinectProxy extends Proxy
 	public void onStartCalibration(int userId)
 	{
 		PApplet.println("onStartCalibration - userId: " + userId);
+		currentlyCalibrating = userId;
 	}
 
 	public void onEndCalibration(int userId, boolean successfull)
@@ -287,6 +294,8 @@ public class KinectProxy extends Proxy
 			
 			this.facade.sendNotification(USER_FAILED_CALIBRATION, userId);
 		}
+		
+		currentlyCalibrating = -1;
 	}
 
 	public void onStartPose(String pose,int userId)
