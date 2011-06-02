@@ -8,12 +8,14 @@ import com.lbi.internetweek.view.components.Bird;
 
 public class HurtState extends BirdState
 {
-	private int MULTIPLIER = 35;
+	private int 		MULTIPLIER = 35;
 	
-	public PVector startingPosition;
-	public PVector startingVelocity;
+	public PVector 		startingPosition;
+	public PVector 		startingVelocity;
 
-	private boolean isParticleSet = false;
+	private boolean 	isParticleSet = false;
+	
+	private int			life		=	300;
 
 	public HurtState(Bird b)
 	{
@@ -25,8 +27,10 @@ public class HurtState extends BirdState
 	{
 		if (!isParticleSet)
 		{
-			PApplet.println("\tstartingPos & Vel: " + startingPosition + " " + startingVelocity );
-
+			//PApplet.println("\tstartingPos & Vel: " + startingPosition + " " + startingVelocity );
+			
+			life		=	300;
+			
 			bird.getParticle().x = startingPosition.x;
 			bird.getParticle().y = startingPosition.y;
 			
@@ -60,6 +64,13 @@ public class HurtState extends BirdState
 		
 		bird.getParticle()
 			.addVelocity( v );
+		
+		if( life < 0 )
+		{
+			bird.setState(bird.flyingState);
+		}
+		
+		life--;		
 	}
 
 	@Override
@@ -73,8 +84,12 @@ public class HurtState extends BirdState
 		{
 			bird.isTweeting = true;
 			bird.state = bird.tweetState;
-		} else if (state instanceof FlyingState)
+		} 
+		else if (state instanceof FlyingState)
 		{
+			bird.getBoid().pos = new PVector(bird.x, bird.y);
+			bird.getBoid().vel = new PVector(bird.getParent().random(-10,10), bird.getParent().random(-10, 0));
+			
 			bird.state = bird.flyingState;
 		}
 	}

@@ -129,8 +129,9 @@ public class Boid
 	 */
 	public void keepInZone(Zone z, boolean loopZone)
 	{
-		int maxX = z.x + z.w;
-		int maxY = z.y + z.h;
+		float maxX = z.x() + z.w();
+		float maxY = z.y() + z.h();
+		
 		if(!loopZone)
 		{
 			// When a boid approach a side, an opposite vector is added to velocity (bounce)
@@ -138,19 +139,19 @@ public class Boid
 			// efficiency ~ 10 : boids immediately rejected
 			// efficiency ~ .1  : boids slowly change direction
 			PVector v = new PVector();
-			if(pos.x <= z.x + f.perception)       v.x = (z.x + f.perception - pos.x) * efficiency;
+			if(pos.x <= z.x() + f.perception)       v.x = (z.x() + f.perception - pos.x) * efficiency;
 			else if(pos.x >= maxX - f.perception) v.x = (maxX - f.perception - pos.x) * efficiency;
-			if(pos.y <= z.y + f.perception)       v.y = (z.y + f.perception - pos.y) * efficiency;
+			if(pos.y <= z.y() + f.perception)       v.y = (z.y() + f.perception - pos.y) * efficiency;
 			else if(pos.y >= maxY - f.perception) v.y = (maxY - f.perception - pos.y) * efficiency;
 			vel.add(v);
 		}
 		else
 		{
 			// When a boid cross a side, he's placed on the opposite side (teleport)
-			if(pos.x <= z.x)       pos.x = maxX;
-			else if(pos.x >= maxX) pos.x = z.x;
-			if(pos.y <= z.y)       pos.y = maxY;
-			else if(pos.y >= maxY) pos.y = z.y;
+			if(pos.x <= z.x())       pos.x = maxX;
+			else if(pos.x >= maxX) pos.x = z.x();
+			if(pos.y <= z.y())       pos.y = maxY;
+			else if(pos.y >= maxY) pos.y = z.y();
 		}
 	}
 

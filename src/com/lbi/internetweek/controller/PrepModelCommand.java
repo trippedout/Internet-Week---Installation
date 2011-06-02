@@ -10,6 +10,7 @@ import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
 
 import com.lbi.internetweek.model.AppProxy;
+import com.lbi.internetweek.model.GameProxy;
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.model.PhysicsProxy;
 import com.lbi.internetweek.model.TwitterProxy;
@@ -22,5 +23,6 @@ public class PrepModelCommand extends SimpleCommand
         this.facade.registerProxy( new PhysicsProxy() );
         this.facade.registerProxy( new TwitterProxy() );
         this.facade.registerProxy( new KinectProxy() );
+        this.facade.registerProxy( new GameProxy() );
     }
 }

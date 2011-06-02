@@ -8,6 +8,7 @@ import com.lbi.internetweek.controller.MainDrawCommand;
 import com.lbi.internetweek.controller.StartupCommand;
 import com.lbi.internetweek.controller.TwitterUpdateCommand;
 import com.lbi.internetweek.controller.MainUpdateCommand;
+import com.lbi.internetweek.controller.game.AddPointCommand;
 import com.lbi.internetweek.controller.kinect.ContactsUpdatedCommand;
 import com.lbi.internetweek.controller.kinect.FoundUserCommand;
 import com.lbi.internetweek.controller.kinect.LostUserCommand;
@@ -49,6 +50,7 @@ public class ApplicationFacade extends Facade
 		registerCommand( KinectProxy.NEW_USER, new FoundUserCommand() );
 		registerCommand( KinectProxy.LOST_USER, new LostUserCommand() );
 		registerCommand( KinectProxy.CONTACTS_UPDATED, new ContactsUpdatedCommand() );
+		registerCommand( KinectProxy.ADD_POINT_TO_SCORE, new AddPointCommand() );
 	}
 
 	public void startup(Installation $app)

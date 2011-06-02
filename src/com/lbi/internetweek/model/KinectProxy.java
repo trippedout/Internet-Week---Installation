@@ -24,7 +24,8 @@ public class KinectProxy extends Proxy
 	final public static String NAME					=	"KinectProxy";
 	final public static String CONTACTS_UPDATED 	=	"contacts_updated";
 	final public static String NEW_USER			 	=	"new_user";
-	final public static String LOST_USER			 =	"lost_user";
+	final public static String LOST_USER			=	"lost_user";
+	public static final String ADD_POINT_TO_SCORE 	=	"add_point_to_score";
 
 	Installation	_pa;
 
@@ -163,23 +164,8 @@ public class KinectProxy extends Proxy
 	}
 
 	// --------------------------------------------------------------------------------------------------------
-	// SKELETAL
+	// SCORING
 	// --------------------------------------------------------------------------------------------------------
-
-	private float mapXToScreen(float x) 
-	{		
-		return PApplet.map(x, 0, 640, 0, _pa.width);
-	}
-
-	private float mapYToScreen(float y) 
-	{		
-		return PApplet.map(y, 0, 480, 0, _pa.height);
-	}
-
-	// --------------------------------------------------------------------------------------------------------
-	// COLLISIONS
-	// --------------------------------------------------------------------------------------------------------
-
 	
 	private float lastMag;
 	
@@ -203,13 +189,14 @@ public class KinectProxy extends Proxy
 						
 						if( dr < AppProxy.MIN_DIST && rvmag > AppProxy.MIN_POWER && rvmag != lastMag )
 						{
-							PApplet.println( "\nBird: " + i + " dist: " + dr + " mag:" + rvmag );
+							//PApplet.println( "\nBird: " + i + " dist: " + dr + " mag:" + rvmag );
 							
 							b.hurtState.startingVelocity = rightHandVector.getVelocity().normalize(new PVector(0,1));							
 							b.setState(b.hurtState);
 							
 							lastMag = rvmag;
 							
+							this.facade.sendNotification( ADD_POINT_TO_SCORE );
 							this.facade.sendNotification( PoofMediator.SHOW_POOF, b.hurtState.startingPosition );
 							
 							break;
@@ -217,13 +204,14 @@ public class KinectProxy extends Proxy
 						
 						if( dl < AppProxy.MIN_DIST && lvmag > AppProxy.MIN_POWER && lvmag != lastMag )
 						{
-							PApplet.println( "\nBird: " + i + " dist: " + dl + " mag:" + lvmag );
+							//PApplet.println( "\nBird: " + i + " dist: " + dl + " mag:" + lvmag );
 							
 							b.hurtState.startingVelocity = leftHandVector.getVelocity().normalize(new PVector(0,1));							
 							b.setState(b.hurtState);
 							
 							lastMag = lvmag;
 							
+							this.facade.sendNotification( ADD_POINT_TO_SCORE );
 							this.facade.sendNotification( PoofMediator.SHOW_POOF, b.hurtState.startingPosition );
 							
 							break;
@@ -233,6 +221,20 @@ public class KinectProxy extends Proxy
 				}
 			}		
 		}
+	}
+
+	// --------------------------------------------------------------------------------------------------------
+	// SKELETAL
+	// --------------------------------------------------------------------------------------------------------
+
+	private float mapXToScreen(float x) 
+	{		
+		return PApplet.map(x, 0, 640, 0, _pa.width);
+	}
+
+	private float mapYToScreen(float y) 
+	{		
+		return PApplet.map(y, 0, 480, 0, _pa.height);
 	}
 
 	// --------------------------------------------------------------------------------------------------------

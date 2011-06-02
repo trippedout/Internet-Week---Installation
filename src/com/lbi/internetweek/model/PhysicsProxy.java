@@ -50,6 +50,6 @@ public class PhysicsProxy extends Proxy
 	public static final VerletPhysics2D getPhysics()
 	{		
 		return _physics;
-	}
+	}	
 
 }

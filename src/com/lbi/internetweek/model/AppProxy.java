@@ -5,13 +5,18 @@ import java.util.Hashtable;
 import org.puremvc.java.patterns.observer.Notification;
 import org.puremvc.java.patterns.proxy.Proxy;
 
+import com.lbi.internetweek.ApplicationFacade;
+import com.lbi.internetweek.Installation;
+
 import processing.core.PImage;
+import toxi.geom.Rect;
 
 public class AppProxy extends Proxy
 {
-	final public static String NAME = "AppProxy";
-	
-	final public static String MODE_CHANGE		=	"mode_change";
+	final public static String 	NAME = "AppProxy";	
+	final public static String 	MODE_CHANGE		=	"mode_change";
+	final public static int		LEFT_SCREEN		=	0;
+	final public static int		RIGHT_SCREEN	=	1;
 	
 	final public static int 	MODE_NORMAL		=	0;
 	final public static int 	MODE_GAME		=	1;
@@ -24,27 +29,67 @@ public class AppProxy extends Proxy
 	public static final int 	MIN_POWER 		=	65;
 	
 	public static PImage 		_birdImage;
-
-	private int	_mode			=	MODE_NORMAL;
+	
+	private Installation		_pa;
+	
+	//bg changing
+	private PImage				_leftBG;
+	private PImage				_rightBG;
+	private PImage				_bg;
+	
+	//flocking
+	private Rect 				_rightRect;
+	private Rect 				_leftRect;
+	private Rect				_flockRect;
 	
 	//private 
+	private int					_mode			=	MODE_NORMAL;
+	
 	
 	public AppProxy()
 	{
 		super(NAME);
+		
+		_pa			=	ApplicationFacade.app;
+		
+		initBGs();
+		initFlockRects();
+		setScreen(RIGHT_SCREEN);
 	}
 		
-	public Hashtable getItems()
+	private void initBGs()
+	{
+		_leftBG			=	_pa.loadImage("bg_left.png");
+		_rightBG		=	_pa.loadImage("bg_right.png");
+	}
+
+	private void initFlockRects()
+	{
+		_leftRect		=	new Rect( -105, 40, _pa.width, _pa.height-200 );
+		_rightRect		=	new Rect( 105, 40, _pa.width, _pa.height-200 );
+	}
+
+	public void setScreen(int screen)
+	{
+		switch(screen)
+		{
+		case LEFT_SCREEN:
+			_bg = _leftBG;
+			_flockRect = _leftRect;
+			break;
+			
+		case RIGHT_SCREEN:
+			_bg = _rightBG;
+			_flockRect = _rightRect;
+			break;
+		}
+	}
+        
+    public PImage getBG()
     {
-        return (Hashtable) super.getData();
+    	return _bg;
     }
 
-    public void addItem(Object item)
-    { 
-        Hashtable temp = getItems();
-        temp.put(item.toString(), item);
-    }
-    
     public static void setBirdImage( PImage bi )
     {
     	_birdImage = bi;
@@ -60,4 +105,9 @@ public class AppProxy extends Proxy
     	_mode = mode;
     	this.facade.notifyObservers( new Notification(MODE_CHANGE, _mode) );
     }
+
+	public Rect getRect()
+	{
+		return _flockRect;
+	}
 }

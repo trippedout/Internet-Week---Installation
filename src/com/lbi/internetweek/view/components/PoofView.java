@@ -25,6 +25,8 @@ public class PoofView
 	private PImage[]				_poofFrames			=	new PImage[_poofTotalFrames];
 	private PImage					_poofSprite;
 	
+	private PImage					_featherSprite;
+	
 	private ArrayList<Poof>			_poofList			=	new ArrayList<Poof>();
 	
 	private boolean					_canShowPoof;
@@ -34,11 +36,11 @@ public class PoofView
 		_pa			=	ApplicationFacade.app;
 		_mediator 	=	poofMediator;
 		
-		setupImage();		
+		setupImages();
 		setupPhysics();
 	}
 
-	private void setupImage()
+	private void setupImages()
 	{
 		_poofSprite			=	_pa.loadImage("poof_frames.png");
 		
@@ -54,7 +56,9 @@ public class PoofView
 					bw,
 					bh
 			);
-		}	
+		}
+		
+		_featherSprite		=	_pa.loadImage("feather.png");
 	}
 
 	private void setupPhysics()
@@ -90,7 +94,7 @@ public class PoofView
 	{
 		//PApplet.println( "\tShow Poof at " + p );
 		
-		_poofList.add( new Poof(_poofFrames, new PVector(p.x,p.y) ) );		
+		_poofList.add( new Poof(_poofFrames, _featherSprite, new PVector(p.x,p.y) ) );		
 	}
 
 }

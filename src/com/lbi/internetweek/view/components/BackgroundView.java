@@ -1,6 +1,7 @@
 package com.lbi.internetweek.view.components;
 
 import com.lbi.internetweek.ApplicationFacade;
+import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.view.BackgroundMediator;
 
 import processing.core.PApplet;
@@ -10,6 +11,8 @@ public class BackgroundView
 {
 	BackgroundMediator mediator;
 
+	AppProxy	appProxy;
+	
 	PApplet 	p;
 	PImage 		grass;
 	PImage		bg;
@@ -18,12 +21,13 @@ public class BackgroundView
 	{
 		mediator 	=	m;		
 		p 			=	(PApplet) ApplicationFacade.app;
+		appProxy	=	(AppProxy) ApplicationFacade.getInst().retrieveProxy(AppProxy.NAME);
 	}
 	
 	public void loadImages()
 	{
 		//grass		=	p.loadImage("grass.png");
-		bg			=	p.loadImage("bg_right.png");
+		//bg			=	p.loadImage("bg_right.png");
 	}
 	
 	public void draw()
@@ -63,12 +67,14 @@ public class BackgroundView
 	  	p.popMatrix();
 	  	//*/
 	  	
+		bg = appProxy.getBG();
+		
 		int bw = bg.width,
 			bh = bg.height;
 		
 		
 		p.beginShape(p.QUADS);
-		p.texture(bg);
+		p.texture( bg );
 	  	p.vertex(0,0,0,0);
 	  	p.vertex(bw,0,bw,0);
 	  	p.vertex(bw,bh,bw,bh);

@@ -2,10 +2,13 @@ package com.lbi.internetweek.view.boids;
 
 import java.util.ArrayList;
 
+import com.lbi.internetweek.ApplicationFacade;
+import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.utils.Vector2D;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import toxi.geom.Rect;
 
 public class Flock 
 {
@@ -23,6 +26,7 @@ public class Flock
 	public float 	aura			=	3 * size;
 	public float 	perception		=	6 * size;
 	public float 	speedLimit		=	7.5f;
+	public Rect		rect;
 
 	/**
 	 * Class constructor.
@@ -30,7 +34,9 @@ public class Flock
 	public Flock( PApplet p )
 	{
 		pa			=	p;
-		zone 		= 	new Zone(this, 30, 20, pa.width+150, pa.height-200);
+		
+		rect		=	( (AppProxy) ApplicationFacade.getInstance().retrieveProxy(AppProxy.NAME) ).getRect();
+		zone 		= 	new Zone(this, rect);
 		
 		list 		= 	new ArrayList<Boid>();
 		objList		=	new ArrayList<Obj>();
@@ -139,6 +145,9 @@ public class Flock
 	{
 		for(int i=0; i<list.size(); i++)
 		{
+			//set dynamic rect
+			zone.rect = ( (AppProxy) ApplicationFacade.getInstance().retrieveProxy(AppProxy.NAME) ).getRect();
+			
 			Boid b = (Boid) list.get(i);
 
 			// basic flock rules

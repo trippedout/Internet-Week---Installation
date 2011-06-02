@@ -13,6 +13,7 @@ import org.puremvc.java.patterns.command.SimpleCommand;
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.BackgroundMediator;
 import com.lbi.internetweek.view.BirdsMediator;
+import com.lbi.internetweek.view.GUIMediator;
 import com.lbi.internetweek.view.KinectMediator;
 import com.lbi.internetweek.view.PoofMediator;
 import com.lbi.internetweek.view.TweetsMediator;
@@ -26,5 +27,6 @@ public class PrepViewCommand extends SimpleCommand implements ICommand
 		this.facade.registerMediator( new BirdsMediator() );
 		this.facade.registerMediator( new TweetsMediator() );
 		this.facade.registerMediator( new PoofMediator() );
+		this.facade.registerMediator( new GUIMediator() );
     }
 }

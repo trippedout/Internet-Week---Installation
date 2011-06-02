@@ -87,10 +87,7 @@ public class Installation extends PApplet
 	{
 		if ( key == CODED) 
 		{
-		    if (keyCode == UP)
-		    	_facade.keyPressed(UP);
-		    else if( keyCode == DOWN )
-		    	_facade.keyPressed(DOWN);
+		  	_facade.keyPressed(keyCode);
 		}
 	}
 

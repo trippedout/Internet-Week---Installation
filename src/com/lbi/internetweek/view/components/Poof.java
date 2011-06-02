@@ -10,26 +10,47 @@ import processing.core.PVector;
 
 public class Poof
 {
+	private static final float MIN_V = -8;
+	private static final float MAX_V = 8;
+
 	private Installation			_pa;
 	
+	//POOF STUFF
 	private int						_poofTotalFrames	=	4;
 	private PImage[]				_poofFrames;
 
 	private PVector					_poofLoc;
-	private int 					_poofCount = 0;
-	private int 					_poofFrame = 0;
-	private int						_poofFrameFreq = 6;
+	private int 					_poofCount 			= 0;
+	private int 					_poofFrame 			= 0;
+	private int						_poofFrameFreq 		= 6;
 	
-	public int						totalLife	=	300;
+	//FEATHER STUFF
+	private PImage					_feather;
+	private int						_numFeathers		= 6;
+	private Feather[]				_feathers			= new Feather[_numFeathers]; 
+	
+	//LIFE STUFF
+	public int						totalLife	=	100;
 	public boolean					hasLife		=	true;
 	
-	public Poof( PImage[] poofFrames, PVector p )
+	public Poof( PImage[] poofFrames, PImage featherSprite, PVector p )
 	{
 		_pa			=	ApplicationFacade.app;
 		_poofFrames =	poofFrames;
 		_poofLoc	=	p;
+		_feather	=	featherSprite;
+		
+		createFeathers();
 	}
 	
+	private void createFeathers()
+	{
+		for( int i = 0; i < _numFeathers; ++i )
+		{
+			_feathers[i]		=	new Feather(_feather, new PVector( _pa.random(MIN_V, MAX_V), _pa.random(MIN_V, MAX_V) ) );
+		}
+	}
+
 	public void draw()
 	{
 		_pa.pushMatrix();
@@ -61,11 +82,16 @@ public class Poof
 
 	private void drawFeathers()
 	{
-				
+		for( int i = 0; i < _numFeathers; ++i )
+		{
+			_feathers[i].draw();
+		}
 	}
 	
 	public void kill()
 	{
-		
+		_poofFrames = null;
+		_poofLoc = null;
+		_feathers = null;
 	}
 }
