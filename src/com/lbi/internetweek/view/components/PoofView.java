@@ -19,7 +19,6 @@ public class PoofView
 {
 	private PoofMediator			_mediator;
 	private Installation			_pa;
-	private VerletPhysics2D 		_physics;
 
 	private int						_poofTotalFrames	=	4;
 	private PImage[]				_poofFrames			=	new PImage[_poofTotalFrames];
@@ -37,7 +36,6 @@ public class PoofView
 		_mediator 	=	poofMediator;
 		
 		setupImages();
-		setupPhysics();
 	}
 
 	private void setupImages()
@@ -61,19 +59,10 @@ public class PoofView
 		_featherSprite		=	_pa.loadImage("feather.png");
 	}
 
-	private void setupPhysics()
-	{
-		_physics 	=	new VerletPhysics2D();
-		_physics.setWorldBounds( new Rect(0, 0, _pa.width, _pa.height) );
-		_physics.addBehavior( new GravityBehavior( new Vec2D( 0.0f, 0.9f) ) );
-	}
-
 	public void draw()
 	{
 		if( _poofList.size() > 0 )
 		{
-			//PApplet.println("DRAW POOFS: " + _poofList.size() );
-			
 			for( int i = 0; i < _poofList.size(); ++i )
 			{
 				if( _poofList.get(i).hasLife )
@@ -83,8 +72,9 @@ public class PoofView
 				}
 				else
 				{
-					_poofList.remove(i)
-						.kill();
+					Poof p = _poofList.remove(i);
+					p.kill();
+					p = null;
 				}				
 			}
 		}
