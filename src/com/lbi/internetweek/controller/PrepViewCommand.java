@@ -10,6 +10,7 @@ import org.puremvc.java.interfaces.ICommand;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
 
+import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.BackgroundMediator;
 import com.lbi.internetweek.view.BirdsMediator;
@@ -28,5 +29,9 @@ public class PrepViewCommand extends SimpleCommand implements ICommand
 		this.facade.registerMediator( new TweetsMediator() );
 		this.facade.registerMediator( new PoofMediator() );
 		this.facade.registerMediator( new GUIMediator() );
+		
+		this.facade.registerCommand(AppProxy.SCREEN_UPDATED, new ScreenUpdatedCommand() );
+		
+		this.facade.sendNotification(AppProxy.SCREEN_UPDATED);
     }
 }

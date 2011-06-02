@@ -79,9 +79,9 @@ public class TweetView
 			_pa.vertex(sx, sy+h, 0, h);
 			_pa.endShape();
 			
-			_pa.fill(0);
+			_pa.fill(0x333333);
 			_pa.textAlign(_pa.CENTER);
-			_pa.text(_tweet, sx + 20, sy + 40, w-20, h-20);
+			_pa.text(_tweet, sx + 20, sy + 40, w-25, h);
 			_pa.noFill();
 		
 		_pa.popMatrix();

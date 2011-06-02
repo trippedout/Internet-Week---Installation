@@ -35,7 +35,9 @@ public class TweetsView
 		medium   	= 	_pa.loadImage( "bubble/medium.png" );
 		large    	=	_pa.loadImage( "bubble/large.png" );
 		
-		_font		=	_pa.loadFont("DroidSansMono-16.vlw");
+//		_font		=	_pa.loadFont("DroidSansMono-16.vlw");
+		_font		=	_pa.createFont("Arial", 16, true);
+		
 		_pa.textAlign(PConstants.CENTER);
 		_pa.textFont(_font);
 	}

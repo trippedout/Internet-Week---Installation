@@ -10,8 +10,10 @@ import com.lbi.internetweek.controller.TwitterUpdateCommand;
 import com.lbi.internetweek.controller.MainUpdateCommand;
 import com.lbi.internetweek.controller.game.AddPointCommand;
 import com.lbi.internetweek.controller.kinect.ContactsUpdatedCommand;
-import com.lbi.internetweek.controller.kinect.FoundUserCommand;
+import com.lbi.internetweek.controller.kinect.FoundNewUserCommand;
+import com.lbi.internetweek.controller.kinect.UserCalibratedCommand;
 import com.lbi.internetweek.controller.kinect.LostUserCommand;
+import com.lbi.internetweek.controller.kinect.UserFailedCalibrationCommand;
 import com.lbi.internetweek.model.KinectProxy;
 
 public class ApplicationFacade extends Facade
@@ -47,7 +49,9 @@ public class ApplicationFacade extends Facade
 		registerCommand( TWITTER_UPDATED, new TwitterUpdateCommand() );
 		
 		//for kinect
-		registerCommand( KinectProxy.NEW_USER, new FoundUserCommand() );
+		registerCommand( KinectProxy.FOUND_NEW_USER, new FoundNewUserCommand() );
+		registerCommand( KinectProxy.USER_CALIBRATED, new UserCalibratedCommand() );
+		registerCommand( KinectProxy.USER_FAILED_CALIBRATION, new UserFailedCalibrationCommand() );
 		registerCommand( KinectProxy.LOST_USER, new LostUserCommand() );
 		registerCommand( KinectProxy.CONTACTS_UPDATED, new ContactsUpdatedCommand() );
 		registerCommand( KinectProxy.ADD_POINT_TO_SCORE, new AddPointCommand() );

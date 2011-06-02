@@ -23,9 +23,11 @@ public class KinectProxy extends Proxy
 {
 	final public static String NAME					=	"KinectProxy";
 	final public static String CONTACTS_UPDATED 	=	"contacts_updated";
-	final public static String NEW_USER			 	=	"new_user";
+	final public static String USER_CALIBRATED		=	"user_calibrated";
 	final public static String LOST_USER			=	"lost_user";
 	public static final String ADD_POINT_TO_SCORE 	=	"add_point_to_score";
+	public static final String FOUND_NEW_USER 		=	"found_new_user";
+	public static final String USER_FAILED_CALIBRATION 	=	"user_failed_calibration";
 
 	Installation	_pa;
 
@@ -246,7 +248,9 @@ public class KinectProxy extends Proxy
 		PApplet.println("onNewUser - userId: " + userId);
 		PApplet.println("--Start pose detection");
 
-		_context.startPoseDetection("Psi",userId);		
+		_context.startPoseDetection("Psi",userId);	
+		
+		this.facade.sendNotification(FOUND_NEW_USER, userId);
 	}
 
 	public void onLostUser(int userId)
@@ -273,13 +277,15 @@ public class KinectProxy extends Proxy
 			_context.startTrackingSkeleton(userId);
 			currentUser = userId;
 
-			this.facade.sendNotification(NEW_USER, userId);
+			this.facade.sendNotification(USER_CALIBRATED, userId);
 		} 
 		else
 		{ 
 			PApplet.println("--Failed to calibrate user !!!");
 			PApplet.println("--Start pose detection");
 			_context.startPoseDetection("Psi",userId);
+			
+			this.facade.sendNotification(USER_FAILED_CALIBRATION, userId);
 		}
 	}
 
@@ -300,6 +306,11 @@ public class KinectProxy extends Proxy
 	public PImage getDepthImage()
 	{
 		return _depthImage;
+	}
+	
+	public int getNumUsers()
+	{
+		return _context.getNumberOfUsers();
 	}
 
 	// --------------------------------------------------------------------------------------------------------

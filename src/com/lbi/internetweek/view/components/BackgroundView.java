@@ -84,7 +84,7 @@ public class BackgroundView
 	
 	//day vals for lower color start: low r, low g, low b, low r end, low b end, low b end
 	int lr = 255, lg = 255, lb = 255;
-	int lre = 255, lge = 200, lbe = 99;
+	int lre = 255, lge = 223, lbe = 137;
 	
 	private int getLowColor(float d) 
 	{
@@ -101,7 +101,7 @@ public class BackgroundView
 	
 	//day vals for higher color start: high r, high g, high b, high r end, high b end, high b end
 	int hr = 159, hg = 213, hb = 255;
-	int hre = 57, hge = 81, hbe = 195;
+	int hre = 28, hge = 68, hbe = 151;
 	
 	private int getHighColor(float d) 
 	{

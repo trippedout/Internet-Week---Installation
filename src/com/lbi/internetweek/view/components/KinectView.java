@@ -122,9 +122,9 @@ public class KinectView
 				{
 					blob 	=	blobs[j];
 					
-					_pa.fill(50,200,50,20);
-					_pa.strokeWeight(3f);
-					_pa.stroke(255,0,0,185);
+					_pa.fill(255,80);
+					//_pa.strokeWeight(3f);
+					//_pa.stroke(255,0,0,185);
 	
 					_pa.beginShape();
 					

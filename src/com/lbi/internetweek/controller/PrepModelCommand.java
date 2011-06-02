@@ -19,10 +19,10 @@ public class PrepModelCommand extends SimpleCommand
 {
     public void execute(INotification notification)
     {
+        this.facade.registerProxy( new KinectProxy() );
         this.facade.registerProxy( new AppProxy() );
         this.facade.registerProxy( new PhysicsProxy() );
         this.facade.registerProxy( new TwitterProxy() );
-        this.facade.registerProxy( new KinectProxy() );
         this.facade.registerProxy( new GameProxy() );
     }
 }

@@ -1,4 +1,4 @@
-package com.lbi.internetweek.controller;
+package com.lbi.internetweek.controller.game;
 
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;

@@ -7,6 +7,7 @@ import org.puremvc.java.patterns.facade.Facade;
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.view.BackgroundMediator;
 import com.lbi.internetweek.view.BirdsMediator;
+import com.lbi.internetweek.view.GUIMediator;
 import com.lbi.internetweek.view.KinectMediator;
 import com.lbi.internetweek.view.PoofMediator;
 import com.lbi.internetweek.view.TweetsMediator;
@@ -29,7 +30,11 @@ public class MainDrawCommand extends SimpleCommand
 		( (PoofMediator) this.facade.retrieveMediator(PoofMediator.NAME) )
 			.getPoofView()
 			.draw();
-	
+			
+		( (GUIMediator) this.facade.retrieveMediator(GUIMediator.NAME) )
+			.getGUIView()
+			.draw();
+
 		( (TweetsMediator) this.facade.retrieveMediator(TweetsMediator.NAME) )
 			.getTweets()
 			.draw();

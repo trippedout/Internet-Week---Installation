@@ -5,8 +5,9 @@ import org.puremvc.java.patterns.command.SimpleCommand;
 
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.BirdsMediator;
+import com.lbi.internetweek.view.GUIMediator;
 
-public class FoundUserCommand extends SimpleCommand
+public class UserCalibratedCommand extends SimpleCommand
 {
 	public void execute(INotification note)
 	{
@@ -21,5 +22,7 @@ public class FoundUserCommand extends SimpleCommand
 			.getBirdsView()
 			.getFlock()
 			.addObj( kinect.rightHandVector );
+		
+		this.facade.sendNotification(GUIMediator.SHOW_CALIBRATION, GUIMediator.CORRECT_CALIBRATION );
 	}
 }

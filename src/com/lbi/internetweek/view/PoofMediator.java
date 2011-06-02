@@ -5,7 +5,7 @@ import org.puremvc.java.patterns.mediator.Mediator;
 import processing.core.PVector;
 
 import com.lbi.internetweek.ApplicationFacade;
-import com.lbi.internetweek.controller.ShowPoofCommand;
+import com.lbi.internetweek.controller.game.ShowPoofCommand;
 import com.lbi.internetweek.view.components.PoofView;
 
 public class PoofMediator extends Mediator
