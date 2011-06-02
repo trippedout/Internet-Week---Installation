@@ -59,7 +59,6 @@ public class Bird
 	
 	int bw, bh, bhw, bhh;
 	
-	
 	public Bird( Boid boid, VerletParticle2D verletParticle2D )//, Vec2D p )
 	{
 		_pa				=	ApplicationFacade.app;

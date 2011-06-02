@@ -82,6 +82,7 @@ public class TweetView
 			
 			_pa.fill(0x333333);
 			_pa.textFont(AppProxy.getTweetFont());
+			_pa.textSize(16);
 			_pa.textAlign(_pa.CENTER);
 			_pa.text(_tweet, sx + 20, sy + 40, w-25, h);
 			_pa.noFill();

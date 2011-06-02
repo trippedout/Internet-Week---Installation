@@ -138,7 +138,7 @@ public class AppProxy extends Proxy
     {
     	if( _tweetFont == null )
     	{
-    		_tweetFont = ApplicationFacade.app.createFont("Arial",14);
+    		_tweetFont = ApplicationFacade.app.loadFont("DroidSansMono-16.vlw");
     	}
     	
     	return _tweetFont;

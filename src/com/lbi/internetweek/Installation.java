@@ -64,7 +64,7 @@ public class Installation extends PApplet
 		_facade = ApplicationFacade.getInst();
 		_facade.startup(this);
 		
-		_stats = new Stats(this);
+		//_stats = new Stats(this);
 	}
 
 	public void draw()
@@ -72,8 +72,8 @@ public class Installation extends PApplet
 		_facade.update();
 		_facade.draw();
 		
-		if( mousePressed )
-			_stats.draw(0,0);
+		//if( mousePressed )
+			//_stats.draw(0,0);
 		
 		/*
 		birds.updatePhysics(blob);
