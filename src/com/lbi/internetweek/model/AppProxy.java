@@ -36,7 +36,8 @@ public class AppProxy extends Proxy
 	public static PFont			_scoreTextFont;
 	public static PFont			_tweetFont;
 	
-	public static PImage 		_birdImage;
+	public static PImage[] 		_birdFrames;
+	public static PImage[]		_deadBirdFrames;
 	
 	private Installation		_pa;
 	
@@ -144,14 +145,24 @@ public class AppProxy extends Proxy
     	return _tweetFont;
     }
     
-    public static void setBirdImage( PImage bi )
+    public static void setBirdImage( PImage[] bi )
     {
-    	_birdImage = bi;
+    	_birdFrames = bi;
     }
     
-    public static PImage getBirdImage()
+    public static void setDeadBirdImage( PImage[] bi )
     {
-    	return _birdImage;
+    	_deadBirdFrames = bi;
+    }
+    
+    public static PImage[] getBirdFrames()
+    {
+    	return _birdFrames;
+    }
+    
+    public static PImage[] getDeadBirdFrames()
+    {
+    	return _deadBirdFrames;
     }
     
     public void setMode(int mode)

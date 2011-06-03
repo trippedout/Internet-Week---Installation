@@ -2,6 +2,7 @@ package com.lbi.internetweek.states;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.core.PImage;
 
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.model.AppProxy;
@@ -27,9 +28,9 @@ public class TweetState extends BirdState
 	public PVector			startingPosition;
 	public PVector			startingVelocity;
 	
-	public TweetState( Bird b )
+	public TweetState( Bird b, PImage[] frames )
 	{
-		super(b);
+		super(b, frames);
 		
 		_scale = bird.scale;
 	}
@@ -56,10 +57,18 @@ public class TweetState extends BirdState
 	
 	public void draw() 
 	{
+		//calculate flying frame
+		if( (bird.getParent().frameCount + bird.SEED) % FRAME_UPDATE_FREQ == 0 )
+		{
+			bird.birdTexture = _birdFrames[ (frame_counter++) % NUM_FRAMES ];
+		}
+		
+		/*
 		if( (bird.getParent().frameCount + bird.SEED) % FRAME_UPDATE_FREQ == 0 )
 		{
 			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
 		}
+		*/
 		
 		bird.scale = _scale;
 		

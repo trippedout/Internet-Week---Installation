@@ -1,6 +1,7 @@
 package com.lbi.internetweek.states;
 
 import com.lbi.internetweek.view.components.Bird;
+import processing.core.PImage;
 
 import de.looksgood.ani.Ani;
 
@@ -9,9 +10,9 @@ public class PerchState extends BirdState
 	boolean 		birdIsPerched	=	true;
 	boolean			birdIsLanding	=	false;
 	
-	public PerchState( Bird b )
+	public PerchState( Bird b, PImage[] frames )
 	{
-		super(b);
+		super(b, frames);
 	}
 	
 	@Override

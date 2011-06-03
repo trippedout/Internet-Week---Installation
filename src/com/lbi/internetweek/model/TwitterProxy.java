@@ -47,9 +47,17 @@ final public class TwitterProxy extends Proxy
 
 	private void setup()
 	{
+		//
+		// screen 1
 		_stream.setOAuthConsumer("GgpSB1jMpmx2nbJR882qQ", "J9YewDzqLRaQh7KMcJbVbXCUKCA7IoK0aydbkW80");
 		_stream.setOAuthAccessToken(new AccessToken("144933835-W6Dln21DZRvNdhknCmu4qKk7shTl1WAHSZKGtrKe", "5ymzOUnjr5U2DWmOWWFJKYqFVZtxzATnOuaZCEfw4"));
 
+		//
+		//screen 2
+		//_stream.setOAuthConsumer("2RyybKkfjbdOY0zG9FRA", "f3lCT1FDT9p0CjYsvXAbHyce9VIoKZtVmN4CANTMtsw");
+		// incorrect//_stream.setOAuthAccessToken(new AccessToken("144933835-W6Dln21DZRvNdhknCmu4qKk7shTl1WAHSZKGtrKe", "5ymzOUnjr5U2DWmOWWFJKYqFVZtxzATnOuaZCEfw4"));
+		//https://dev.twitter.com/apps/991487
+		//
 		FilterQuery query		=	 new FilterQuery();
 		query.track(TRACKING_ARRAY);
 

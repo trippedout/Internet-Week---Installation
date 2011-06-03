@@ -11,12 +11,15 @@ public class BirdState implements IBirdState {
 	
 	int 		frameWidth		=	128;
 	int 		frameHeight		=	64;
-		
-	PImage[]	frames;
 	
-	public BirdState( Bird b )
+	PImage[] _birdFrames;
+		
+//	PImage[]	frames;
+	
+	public BirdState( Bird b, PImage[] frames )
 	{
 		bird = b;
+		_birdFrames = frames;
 	}
 
 	public void draw() 

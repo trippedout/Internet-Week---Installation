@@ -19,5 +19,11 @@ public class GameProxy extends Proxy
 		_score++;
 		this.facade.sendNotification( SCORE_UPDATED, _score );
 	}
+	
+	public void resetScore()
+	{
+		_score = 0;
+		this.facade.sendNotification( SCORE_UPDATED, _score );
+	}
 
 }

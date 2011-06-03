@@ -1,6 +1,7 @@
 package com.lbi.internetweek.states;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 import toxi.geom.Vec2D;
 
@@ -8,23 +9,35 @@ import com.lbi.internetweek.view.components.Bird;
 
 public class HurtState extends BirdState
 {
+	private int			FRAME_UPDATE_FREQ	=	5;
+	private int			NUM_FRAMES			=	2;
 	private int 		MULTIPLIER = 35;
 	
 	public PVector 		startingPosition;
 	public PVector 		startingVelocity;
 
 	private boolean 	isParticleSet = false;
-	
-	private int			life		=	300;
 
-	public HurtState(Bird b)
+	private int			frame_counter		=	0;
+	private int			life				=	300;
+
+	public HurtState(Bird b, PImage[] frames )
 	{
-		super(b);
+		super(b, frames);
 	}
 
 	@Override
 	public void draw()
 	{
+		//calculate flying frame
+		if( (bird.getParent().frameCount + bird.SEED) % FRAME_UPDATE_FREQ == 0 )
+		{
+//			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
+			bird.birdTexture = _birdFrames[ (frame_counter++) % NUM_FRAMES ];
+		}
+		
+		
+		
 		if (!isParticleSet)
 		{
 			//PApplet.println("\tstartingPos & Vel: " + startingPosition + " " + startingVelocity );

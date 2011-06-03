@@ -1,6 +1,7 @@
 package com.lbi.internetweek.states;
 
 import processing.core.PConstants;
+import processing.core.PImage;
 import processing.core.PVector;
 
 import com.lbi.internetweek.model.AppProxy;
@@ -21,9 +22,9 @@ public class FlyingState extends BirdState
 	private boolean			_isAnimatingSmaller	=	false;
 	private float			_scale;
 	
-	public FlyingState( Bird b )
+	public FlyingState( Bird b, PImage[] frames )
 	{
-		super(b);
+		super(b, frames);
 		
 		_scale = bird.scale;
 	}
@@ -57,7 +58,8 @@ public class FlyingState extends BirdState
 		//calculate flying frame
 		if( (bird.getParent().frameCount + bird.SEED) % FRAME_UPDATE_FREQ == 0 )
 		{
-			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
+//			bird.birdTexture = bird.flyingFrames[ (frame_counter++) % NUM_FRAMES ];
+			bird.birdTexture = _birdFrames[ (frame_counter++) % NUM_FRAMES ];
 		}
 
 		if( !_isAnimatingSmaller )
@@ -82,5 +84,6 @@ public class FlyingState extends BirdState
 	{
 		_isAnimatingSmaller = false;
 	}
+	
 	
 }

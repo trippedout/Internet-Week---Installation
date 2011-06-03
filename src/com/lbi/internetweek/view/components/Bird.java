@@ -47,7 +47,7 @@ public class Bird
 	public boolean			isHurt			=	false;
 	
 	private PApplet 		_pa;
-	private PImage 			_birdImage;	
+//	private PImage 			_birdImage;	
 	
 	//states
 	public IBirdState		state;
@@ -62,7 +62,7 @@ public class Bird
 	public Bird( Boid boid, VerletParticle2D verletParticle2D )//, Vec2D p )
 	{
 		_pa				=	ApplicationFacade.app;
-		_birdImage		=	AppProxy.getBirdImage();		
+//		_birdImage		=	AppProxy.getBirdFrames(0);		
 		
 		//state helpers
 		_vp				=	verletParticle2D;
@@ -77,7 +77,7 @@ public class Bird
 		bhw				=	bw/2;
 		bhh				=	bh/2;
 		
-		setFrames();
+		//setFrames();
 		setStates();
 	}
 
@@ -85,6 +85,10 @@ public class Bird
 	// SETUP FUNCTIONS
 	// --------------------------------------------------------------------------------------------------------
 
+	
+	/*
+	 * moved to BirdsView...
+	 * 
 	private void setFrames() 
 	{
 		int rows = 2, cols = 1;
@@ -106,13 +110,14 @@ public class Bird
 		//_perched frames
 		perchedFrames[0] = _birdImage.get(0,64,bw,bh);
 	}
+	*/
 
 	private void setStates() 
 	{
-		perchState		=	new PerchState(this);
-		tweetState		=	new TweetState(this);
-		flyingState		=	new FlyingState(this);
-		hurtState		=	new HurtState(this);
+		perchState		=	new PerchState(this, AppProxy.getBirdFrames() );
+		tweetState		=	new TweetState(this, AppProxy.getBirdFrames() );
+		flyingState		=	new FlyingState(this, AppProxy.getBirdFrames() );
+		hurtState		=	new HurtState(this, AppProxy.getDeadBirdFrames() );
 
 		state = flyingState;
 		setState( flyingState );

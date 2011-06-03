@@ -47,12 +47,12 @@ public class Tweet
 			
 			_pa.pushMatrix();
 				_pa.scale( littleScale, littleScale );
-				_pa.image( _view.little, 0, 0);
+				_pa.image( _view.little, -90, 0);
 			_pa.popMatrix();
 			
 			_pa.pushMatrix();
 				_pa.scale( mediumScale, mediumScale );
-				_pa.image( _view.medium, 12, -25);
+				_pa.image( _view.medium, -72, -65);
 			_pa.popMatrix();
 			
 			_pa.pushMatrix();
@@ -62,8 +62,9 @@ public class Tweet
 			
 			_pa.fill(0,textAlpha);
 			_pa.textAlign(_pa.CENTER);
-			_pa.textSize(12);
-			_pa.text( _text, 42, -25, 180, 120 );
+			_pa.textSize(25);
+//			_pa.text( _text, 42, -25, 180, 120 );
+			_pa.text( _text, -42, -100, 320, 320 );
 			_pa.noFill();
 			
 		_pa.popMatrix();
@@ -75,7 +76,7 @@ public class Tweet
 	public void animateIn()
 	{
 		Ani.to(this, .6f, .2f, "littleScale", 1, Ani.BACK_OUT );
-		Ani.to(this, .6f, .4f, "mediumScale", 1, Ani.BACK_OUT );
+		Ani.to(this, .6f, .4f, "mediumScale", 1.5f, Ani.BACK_OUT );
 		Ani.to(this, .6f, .6f, "largeScale", 1, Ani.BACK_OUT, "onEnd:onAnimateInComplete" );
 		Ani.to(this, .6f, .8f, "textAlpha", 255, Ani.BACK_OUT );		
 	}

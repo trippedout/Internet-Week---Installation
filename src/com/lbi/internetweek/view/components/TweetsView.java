@@ -1,6 +1,7 @@
 package com.lbi.internetweek.view.components;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import processing.core.PConstants;
 import processing.core.PFont;
@@ -10,6 +11,7 @@ import twitter4j.Status;
 
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.Installation;
+import com.lbi.internetweek.model.AppProxy;
 import com.lbi.internetweek.view.TweetsMediator;
 
 public class TweetsView
@@ -36,7 +38,7 @@ public class TweetsView
 		large    	=	_pa.loadImage( "bubble/large.png" );
 		
 //		_font		=	_pa.loadFont("DroidSansMono-16.vlw");
-		_font		=	_pa.createFont("Arial", 16, true);
+		_font		=	AppProxy.getScoreTextFont();//		_pa.createFont("Arial", 10, true);	//	
 		
 		_pa.textAlign(PConstants.CENTER);
 		_pa.textFont(_font);
@@ -69,7 +71,7 @@ public class TweetsView
 		if( _currentTweet != null && _currentBird != null )
 		{			
 			if( _currentTweet.hasLife() ) 
-				_currentTweet.draw(_currentBird.x, _currentBird.y);
+				_currentTweet.draw( _pa.max( 100, _pa.min( _currentBird.x, 900 )), _pa.max(100, _pa.min( 700, _currentBird.y )) );
 			else
 			{
 				_currentTweet.kill();

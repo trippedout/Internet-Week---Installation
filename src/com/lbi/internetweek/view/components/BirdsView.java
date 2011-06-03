@@ -25,6 +25,7 @@ public class BirdsView
 	private KinectProxy			_kinect;
 	private PApplet 			_pa;
 	private PImage        		_birdImage;
+	private PImage        		_deadBirdImage;
 	private Flock				_flock;
 	private VerletPhysics2D		_physics;
 
@@ -44,10 +45,42 @@ public class BirdsView
 		_flock			=	new Flock(_pa);
 
 		_birdImage      =	_pa.loadImage( "bird_flying_sprites.png" );		
-		AppProxy.setBirdImage(_birdImage);
+		_deadBirdImage    =	_pa.loadImage( "bird_ko_sprites.png" );
+
+		AppProxy.setBirdImage( setFrames( _birdImage, 2, 1 ) );
+		AppProxy.setDeadBirdImage( setFrames( _deadBirdImage, 2, 1 ) );
 
 		createBirds();
 		createAttractors();
+	}
+	
+//	rows = 2;
+//	cols = 1;
+	private PImage[] setFrames( PImage srcImg,  int rows, int cols ) 
+	{
+		PImage[] imgArrToReturn = new PImage[ rows * cols ];
+
+		int bw, bh, bhw, bhh;
+		//height and width of bird images
+		bw				=	srcImg.width / rows;
+		bh				=	srcImg.height / cols;
+		bhw				=	bw/2;
+		bhh				=	bh/2;
+		
+		//flying frames
+		for (int i = 0; i < rows; i++)
+		{
+		    for (int j = 0; j < cols; j++)
+		    {
+		    	imgArrToReturn[(i * cols) + j] = srcImg.get(
+		            i * bw,
+		            j * bh,
+		            bw,
+		            bh
+		        );
+		    }
+		}	
+		return imgArrToReturn;
 	}
 
 	private void createBirds()

@@ -3,6 +3,7 @@ package com.lbi.internetweek.controller.kinect;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
 
+import com.lbi.internetweek.model.GameProxy;
 import com.lbi.internetweek.model.KinectProxy;
 import com.lbi.internetweek.view.BirdsMediator;
 import com.lbi.internetweek.view.GUIMediator;
@@ -24,5 +25,8 @@ public class UserCalibratedCommand extends SimpleCommand
 			.addObj( kinect.rightHandVector );
 		
 		this.facade.sendNotification(GUIMediator.SHOW_CALIBRATION, GUIMediator.CORRECT_CALIBRATION );
+		
+		( (GameProxy) this.facade.retrieveProxy(GameProxy.NAME) )
+			.resetScore();
 	}
 }
