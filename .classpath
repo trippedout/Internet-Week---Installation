@@ -23,13 +23,5 @@
 	<classpathentry kind="lib" path="Jars/twitter4j.jar"/>
 	<classpathentry kind="lib" path="Jars/twitter4j-stream-2.2.2.jar"/>
 	<classpathentry kind="lib" path="Jars/puremvc-java-1.0.jar" sourcepath="/Users/atripaldi/Downloads/PureMVC_Java_1_0/src"/>
-	<classpathentry kind="lib" path="Jars/minim/library/jl1.0.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/jsminim.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/minim-spi.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/minim.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/mp3spi1.9.4.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/tritonus_aos.jar"/>
-	<classpathentry kind="lib" path="Jars/minim/library/tritonus_share.jar"/>
-	<classpathentry kind="lib" path="Jars/nexttext.jar" sourcepath="/Users/atripaldi/Documents/Processing/libraries/nexttext/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

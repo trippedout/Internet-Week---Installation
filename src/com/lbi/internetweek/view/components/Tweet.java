@@ -2,7 +2,6 @@ package com.lbi.internetweek.view.components;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import net.nexttext.Book;
 
 import com.lbi.internetweek.ApplicationFacade;
 import com.lbi.internetweek.Installation;

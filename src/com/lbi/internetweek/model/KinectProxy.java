@@ -137,18 +137,19 @@ public class KinectProxy extends Proxy
 	{
 		if( _pa.frameCount % 2 == 0 )
 		{
-			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_HEAD, jointPos );		
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_HEAD, jointPos );
 			_context.convertRealWorldToProjective(jointPos, realPos);
 			headVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
 			
-			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_RIGHT_HAND, jointPos );		
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_RIGHT_HAND, jointPos );
 			_context.convertRealWorldToProjective(jointPos, realPos);
-			rightHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );		
+			rightHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
 	
-			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_LEFT_HAND, jointPos );		
+			_context.getJointPositionSkeleton( userId, SimpleOpenNI.SKEL_LEFT_HAND, jointPos );
 			_context.convertRealWorldToProjective(jointPos, realPos);
-			leftHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );
-		}		
+			leftHandVector.set( mapXToScreen(realPos.x), mapYToScreen(realPos.y), 0 );			
+		}
+		
 		//this.facade.sendNotification(CONTACTS_UPDATED, this);
 	}
 
@@ -169,7 +170,7 @@ public class KinectProxy extends Proxy
 			}
 		}
 	}
-
+	
 	// --------------------------------------------------------------------------------------------------------
 	// SCORING
 	// --------------------------------------------------------------------------------------------------------

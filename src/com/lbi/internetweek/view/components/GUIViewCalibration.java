@@ -44,12 +44,12 @@ public class GUIViewCalibration
 			break;
 
 		case GUIMediator.FAILED_CALIBRATION:
-			_imageLife = 300;
+			_imageLife = 200;
 			_currentImage = _failedImage;
 			break;
 			
 		case GUIMediator.CORRECT_CALIBRATION:
-			_imageLife = 120;
+			_imageLife = 60;
 			_currentImage = _completeImage;
 			break;
 		}

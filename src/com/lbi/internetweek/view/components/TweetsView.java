@@ -38,7 +38,8 @@ public class TweetsView
 		large    	=	_pa.loadImage( "bubble/large.png" );
 		
 //		_font		=	_pa.loadFont("DroidSansMono-16.vlw");
-		_font		=	AppProxy.getScoreTextFont();//		_pa.createFont("Arial", 10, true);	//	
+		_font		=	AppProxy.getScoreTextFont();
+//		_pa.createFont("Arial", 10, true);	
 		
 		_pa.textAlign(PConstants.CENTER);
 		_pa.textFont(_font);
